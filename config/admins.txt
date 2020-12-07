@@ -12,6 +12,7 @@
 
 AshCorr	=	Host
 Xantam	=	Host
+Baiomu	=	Host
  
 TehLadyK	=	Council Member
 Yogurtshrimp69	=	Council Member
