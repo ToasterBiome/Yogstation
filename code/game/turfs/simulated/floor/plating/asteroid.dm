@@ -466,3 +466,38 @@
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE
+
+//JUNGLELAND TURFS
+
+/turf/open/floor/plating/asteroid/jungle
+	gender = PLURAL
+	name = "jungle vines"
+	desc = "You remember vine?"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "jungle" 
+	icon_plating = "jungle"
+	baseturfs = /turf/open/floor/plating/asteroid/jungle
+	initial_gas_mix = JUNGLELAND_DEFAULT_ATMOS
+	slowdown = 2
+	environment_type = "jungle"
+	flags_1 = NONE
+	planetary_atmos = TRUE
+	burnt_states = list("jungle_dug")
+	bullet_sizzle = TRUE
+	bullet_bounce_sound = null
+	digResult = /obj/item/stack/sheet/mineral/basalt
+
+/turf/open/floor/plating/asteroid/airless/cave/jungle
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3, \
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40, /obj/structure/spawner/lavaland = 2, \
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing = 20, /obj/structure/spawner/lavaland/magmawing = 1, \
+		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 3, \
+		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10, /mob/living/simple_animal/hostile/asteroid/marrowweaver = 35, \
+		/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck = 1, /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen = 1) // yogs change added marrowweaver and gubbuck/gutlunch
+
+	data_having_type = /turf/open/floor/plating/asteroid/airless/cave/jungle/has_data
+	turf_type = /turf/open/floor/plating/asteroid/jungle
+	initial_gas_mix = JUNGLELAND_DEFAULT_ATMOS
+
+/turf/open/floor/plating/asteroid/airless/cave/jungle/has_data //subtype for producing a tunnel with given data
+	has_data = TRUE

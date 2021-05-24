@@ -270,6 +270,17 @@
 		/turf/closed/mineral/silver/ice/icemoon = 12, /turf/closed/mineral/plasma/ice/icemoon = 20, /turf/closed/mineral/iron/ice/icemoon = 40,
 		/turf/closed/mineral/gibtonite/ice/icemoon = 4, /turf/closed/mineral/bscrystal/ice/icemoon = 1)
 
+/turf/closed/mineral/random/jungle
+	environment_type = "jungle"
+	turf_type = /turf/open/floor/plating/asteroid/jungle
+	baseturfs = /turf/open/floor/plating/asteroid/jungle
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+	defer_change = TRUE
+
+
+	mineralChance = 10
+	mineralSpawnChanceList = list(
+		/turf/closed/mineral/iron/jungle = 40)
 
 /turf/closed/mineral/random/labormineral
 	mineralSpawnChanceList = list(
@@ -323,6 +334,11 @@
 /turf/closed/mineral/iron/ice/icemoon
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice/icemoon
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice/icemoon
+	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
+
+/turf/closed/mineral/iron/jungle
+	turf_type = /turf/open/floor/plating/asteroid/jungle
+	baseturfs = /turf/open/floor/plating/asteroid/jungle
 	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
 
 /turf/closed/mineral/uranium
@@ -608,6 +624,14 @@
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice/icemoon
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice/icemoon
 	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
+
+//JUNGLELAND TURFS
+/turf/closed/mineral/jungle
+	environment_type = "jungle"
+	smooth_icon = 'icons/turf/smoothjungle.dmi'
+	turf_type = /turf/open/floor/plating/asteroid/jungle
+	baseturfs = /turf/open/floor/plating/asteroid/jungle
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 //GIBTONITE
 
