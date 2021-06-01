@@ -11105,21 +11105,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary)
-"aEF" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/cocoapod,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hydroponics/garden)
 "aEG" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -12169,17 +12154,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/auxiliary)
-"aHz" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hydroponics/garden)
 "aHA" = (
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/spray/pestspray{
@@ -32181,6 +32155,23 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/white,
 /area/science/nanite)
+"cwt" = (
+/obj/structure/table/glass,
+/obj/item/cultivator,
+/obj/item/hatchet,
+/obj/item/crowbar,
+/obj/item/plant_analyzer,
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/item/shovel/spade,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hydroponics/garden)
 "cwI" = (
 /obj/machinery/computer/communications,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -44236,6 +44227,24 @@
 /obj/machinery/computer/med_data,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
+"knA" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/snacks/grown/wheat,
+/obj/item/reagent_containers/food/snacks/grown/watermelon,
+/obj/item/reagent_containers/food/snacks/grown/watermelon,
+/obj/item/reagent_containers/food/snacks/grown/watermelon,
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
+/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/reagent_containers/food/snacks/grown/cocoapod,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hydroponics/garden)
 "knE" = (
 /obj/effect/spawner/structure/window/reinforced/shutter,
 /obj/structure/cable{
@@ -51651,6 +51660,9 @@
 /obj/effect/variation/box/sec/brig_cell,
 /turf/open/floor/plasteel,
 /area/security/brig)
+"pmk" = (
+/turf/open/water/fishing,
+/area/hydroponics/garden)
 "pmC" = (
 /obj/docking_port/stationary/public_mining_dock{
 	dir = 8
@@ -52461,6 +52473,14 @@
 	},
 /turf/open/floor/engine,
 /area/escapepodbay)
+"pMB" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hydroponics/garden)
 "pMV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -52826,6 +52846,10 @@
 /obj/effect/turf_decal/trimline/green,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"pYB" = (
+/obj/item/fishingrod,
+/turf/open/floor/plasteel,
+/area/hydroponics/garden)
 "pZE" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/red{
@@ -64136,20 +64160,6 @@
 /obj/structure/closet/cardboard,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"xSW" = (
-/obj/structure/table/glass,
-/obj/item/cultivator,
-/obj/item/hatchet,
-/obj/item/crowbar,
-/obj/item/plant_analyzer,
-/obj/item/reagent_containers/glass/bucket,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/item/shovel/spade,
-/turf/open/floor/plasteel,
-/area/hydroponics/garden)
 "xTe" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -81579,8 +81589,8 @@ azF
 aAP
 aAP
 aAP
-aEF
-xSW
+aAQ
+pmk
 azF
 aIP
 aNq
@@ -81836,8 +81846,8 @@ azF
 aAK
 aAQ
 aAQ
-aAQ
-aAQ
+pYB
+pmk
 azF
 aIR
 ayl
@@ -82094,7 +82104,7 @@ aAY
 axS
 opj
 aAQ
-aAQ
+azF
 azF
 azF
 azF
@@ -82351,8 +82361,8 @@ aBd
 aCz
 aDg
 aAQ
-aAQ
-aHz
+cwt
+pMB
 aDG
 aKn
 aLF
@@ -83119,7 +83129,7 @@ alU
 arS
 azF
 azF
-aAP
+knA
 aAP
 aAQ
 yif
