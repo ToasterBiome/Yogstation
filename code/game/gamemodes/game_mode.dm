@@ -305,8 +305,8 @@
 
 	print_command_report(intercepttext, "Central Command Status Summary", announce=FALSE)
 	priority_announce("A summary has been copied and printed to all communications consoles.\n\n[generate_station_trait_announcement()]", "Enemy communication intercepted. Security level elevated.", ANNOUNCER_INTERCEPT)
-	if(GLOB.security_level < SEC_LEVEL_BLUE)
-		set_security_level(SEC_LEVEL_BLUE)
+	if(GLOB.security_level < SEC_LEVEL_RED)
+		set_security_level(SEC_LEVEL_RED)
 		
 /*
  * Generate a list of station goals available to purchase to report to the crew.

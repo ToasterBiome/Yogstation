@@ -1,4 +1,4 @@
-#define ROUND_END_ANNOUNCEMENT_TIME 105 //the time at which the game will announce that the shuttle can be called, in minutes.
+#define ROUND_END_ANNOUNCEMENT_TIME 20 //the time at which the game will announce that the shuttle can be called, in minutes.
 #define REBWOINK_TIME 50 // Number of seconds before unclaimed tickets bwoink again and yell about being unclaimed
 
 SUBSYSTEM_DEF(Yogs)
