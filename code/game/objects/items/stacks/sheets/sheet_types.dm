@@ -54,7 +54,15 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister/generic, 10, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("portable pump", /obj/machinery/portable_atmospherics/pump, 10, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
 	null, \
-	new/datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, 1, 4, 20), \
+	new/datum/stack_recipe_list("tile", list( \
+		new/datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, 1, 4, 20), \
+		new/datum/stack_recipe("maintenance catwalk tile", /obj/item/stack/tile/catwalk_tile, 1, 6, 20), \
+		new/datum/stack_recipe("iron catwalk tile", /obj/item/stack/tile/catwalk_tile/iron, 1, 6, 20), \
+		new/datum/stack_recipe("iron white catwalk tile", /obj/item/stack/tile/catwalk_tile/iron_white, 1, 6, 20), \
+		new/datum/stack_recipe("iron dark catwalk tile", /obj/item/stack/tile/catwalk_tile/iron_dark, 1, 6, 20), \
+		new/datum/stack_recipe("flat white catwalk tile", /obj/item/stack/tile/catwalk_tile/flat_white, 1, 6, 20), \
+		new/datum/stack_recipe("iron smooth catwalk tile", /obj/item/stack/tile/catwalk_tile/iron_smooth, 1, 6, 20), \
+		)), \
 	new/datum/stack_recipe("metal rod", /obj/item/stack/rods, 1, 2, 60), \
 	null, \
 	new/datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 40, one_per_turf = TRUE, on_floor = TRUE), \
