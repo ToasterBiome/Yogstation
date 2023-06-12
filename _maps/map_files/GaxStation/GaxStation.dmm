@@ -10687,13 +10687,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
-"fdO" = (
-/obj/effect/turf_decal/trimline/secred/filled/line/lower{
-	dir = 4
-	},
-/obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 "feb" = (
 /obj/effect/turf_decal/siding/wideplating{
 	dir = 4
@@ -18465,6 +18458,16 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
+"iSS" = (
+/obj/effect/turf_decal/trimline/secred/filled/line/lower{
+	dir = 4
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/trimline/engiyellow/filled/corner/lower{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "iTl" = (
 /obj/effect/turf_decal/trimline/white/filled/line/lower{
 	dir = 1
@@ -24625,15 +24628,6 @@
 /obj/item/storage/box/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/main)
-"mei" = (
-/obj/effect/turf_decal/trimline/secred/filled/corner/lower{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/secred/filled/corner/lower{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/fore)
 "meo" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -30124,6 +30118,27 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"oWP" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/trimline/secred/filled/corner/lower{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/secred/filled/corner/lower{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore)
 "oWT" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 8
@@ -36018,6 +36033,12 @@
 	},
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
+"rJJ" = (
+/obj/effect/turf_decal/trimline/engiyellow/filled/corner/lower{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "rKl" = (
 /turf/open/floor/engine/n2,
 /area/engine/atmos/distro)
@@ -41057,24 +41078,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/medical/paramedic)
-"ukY" = (
-/obj/effect/turf_decal/trimline/secred/filled/line/lower{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/fore)
 "uli" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -73219,7 +73222,7 @@ vNV
 xHC
 eCN
 ixK
-byP
+rJJ
 uDP
 byP
 byP
@@ -73476,7 +73479,7 @@ oyB
 vdo
 oyB
 oyB
-fdO
+iSS
 nsR
 uyk
 cmb
@@ -76532,8 +76535,8 @@ dzA
 eCE
 eXJ
 isk
-mei
-ukY
+unP
+oWP
 unP
 wcp
 kGT
