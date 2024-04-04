@@ -38,6 +38,9 @@
 
 	var/turf/T = get_turf(A)
 
+	if(T.liquids) //let the component handle this
+		return
+
 	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
 		return
 

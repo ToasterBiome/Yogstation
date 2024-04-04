@@ -47,3 +47,6 @@
 #define COMSIG_TURF_IGNITED "turf_ignited"
 	///Prevents hotspots and turf fires
 	#define SUPPRESS_FIRE (1<<0)
+
+///from base of /obj/effect/abstract/liquid_turf/Initialize() (/obj/effect/abstract/liquid_turf/liquids)
+#define COMSIG_TURF_LIQUIDS_CREATION "turf_liquids_creation"

@@ -137,7 +137,13 @@ DEFINE_BITFIELD(smoothing_junction, list(
 #define SMOOTH_GROUP_TURF_OPEN_CLIFF S_TURF(63) ///turf/open/cliff
 #define SMOOTH_GROUP_TURF_BALLPIT S_TURF(64) ///turf/open/floor/ballpit
 
-#define MAX_S_TURF 64 //Always match this value with the one above it.
+
+#define SMOOTH_GROUP_ELEVATED_PLASTEEL S_TURF(65)
+#define SMOOTH_GROUP_LOWERED_PLASTEEL S_TURF(66)
+
+#define SMOOTH_GROUP_FISSURE S_TURF(67)
+
+#define MAX_S_TURF 67 //Always match this value with the one above it.
 
 #define S_OBJ(num) ("-" + #num + ",")
 /* /obj included */
@@ -201,7 +207,9 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 #define SMOOTH_GROUP_CLEANABLE_DIRT S_OBJ(68) ///obj/effect/decal/cleanable/dirt
 
-#define SMOOTH_GROUP_GAS_TANK S_OBJ(72) 
+#define SMOOTH_GROUP_GAS_TANK S_OBJ(72)
+
+#define SMOOTH_GROUP_WATER S_OBJ(73) ///obj/effect/abstract/liquid_turf
 
 
 /// Performs the work to set smoothing_groups and canSmoothWith.
