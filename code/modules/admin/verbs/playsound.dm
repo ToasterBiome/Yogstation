@@ -63,88 +63,47 @@
 	if(!check_rights(R_SOUNDS))
 		return
 
-	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
-	if(!ytdl)
-		to_chat(src, span_boldwarning("Youtube-dl was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
-		return
+	var/web_sound_url
+	var/stop_web_sounds = FALSE
 
 	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via youtube-dl") as text|null
+	
 	if(istext(web_sound_input))
-		var/web_sound_url = ""
-		var/stop_web_sounds = FALSE
-		var/list/music_extra_data = list()
-		if(length(web_sound_input))
-			web_sound_input = trim(web_sound_input)
-			if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
-				to_chat(src, span_boldwarning("Non-http(s) URIs are not allowed."), confidential=TRUE)
-				to_chat(src, span_warning("For youtube-dl shortcuts like ytsearch: please use the appropriate full url from the website."), confidential=TRUE)
-				return
-			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
-			var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height<=360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist -- \"[shell_scrubbed_input]\"")
-			var/errorlevel = output[SHELLEO_ERRORLEVEL]
-			var/stdout = output[SHELLEO_STDOUT]
-			var/stderr = output[SHELLEO_STDERR]
-			if(!errorlevel)
-				var/list/data
-				try
-					data = json_decode(stdout)
-				catch(var/exception/e)
-					to_chat(src, span_boldwarning("Youtube-dl JSON parsing FAILED:"), confidential=TRUE)
-					to_chat(src, span_warning("[e]: [stdout]"), confidential=TRUE)
-					return
+		var/list/data = list()
+		data["url"] = web_sound_input
+		data["downloadMode"] = "audio"
 
-				if (data["url"])
-					web_sound_url = data["url"]
-					var/title = "[data["title"]]"
-					var/webpage_url = title
-					if (data["webpage_url"])
-						webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
-					music_extra_data["start"] = data["start_time"]
-					music_extra_data["end"] = data["end_time"]
-					music_extra_data["link"] = data["webpage_url"]
-					music_extra_data["title"] = data["title"]
-					if(data["duration"])
-						var/mus_len = data["duration"] SECONDS
-						if(data["start_time"])
-							mus_len -= data["start_time"] SECONDS
-						if(data["end_time"])
-							mus_len -= (data["duration"] SECONDS - data["end_time"] SECONDS)
-						SSticker.music_available = REALTIMEOFDAY + mus_len
-
-					var/res = tgui_alert(usr, "Show the title of and link to this song to the players?\n[title]",, list("No", "Yes", "Cancel"))
-					switch(res)
-						if("Yes")
-							to_chat(world, span_boldannounce("An admin played: [webpage_url]"))
-						if("Cancel")
-							return
-
-					SSblackbox.record_feedback("nested tally", "played_url", 1, list("[ckey]", "[web_sound_input]"))
-					log_admin("[key_name(src)] played web sound: [web_sound_input]")
-					message_admins("[key_name(src)] played web sound: [web_sound_input]")
-			else
-				to_chat(src, span_boldwarning("Youtube-dl URL retrieval FAILED:"), confidential=TRUE)
-				to_chat(src, span_warning("[stderr]"), confidential=TRUE)
-
-		else //pressed ok with blank
-			log_admin("[key_name(src)] stopped web sound")
-			message_admins("[key_name(src)] stopped web sound")
-			web_sound_url = null
-			stop_web_sounds = TRUE
-			SSticker.music_available = 0
-
-		if(web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
-			to_chat(src, span_boldwarning("BLOCKED: Content URL not using http(s) protocol"), confidential=TRUE)
-			to_chat(src, span_warning("The media provider returned a content URL that isn't using the HTTP or HTTPS protocol"), confidential=TRUE)
+		var/datum/http_request/request = new()
+		request.prepare(RUSTG_HTTP_METHOD_POST, "https://api.cobalt.tools/", json_encode(data), list("Content-Type" = "application/json", "Accept" = "application/json"))
+		request.execute_blocking()
+		UNTIL(request.is_complete() || !usr)
+		if (!usr)
 			return
-		if(web_sound_url || stop_web_sounds)
-			for(var/m in GLOB.player_list)
-				var/mob/M = m
-				var/client/C = M.client
-				if(C.prefs.toggles & SOUND_MIDI)
-					if(!stop_web_sounds)
-						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
-					else
-						C.tgui_panel?.stop_music()
+
+		var/datum/http_response/response = request.into_response()
+		if(response.errored)
+			to_chat(src, span_danger("Response Error: [response.error]"))
+			return
+		var/list/body = json_decode(response.body)
+		if(body["status"] == "error")
+			to_chat(src, span_danger("Errored"))
+			return
+		debug_variables(body)
+		if(body["url"])
+			web_sound_url = body["url"]
+			to_chat(src, "Played [web_sound_input] successfully.")
+	else
+		stop_web_sounds = TRUE
+	
+	if(web_sound_url || stop_web_sounds)
+		for(var/m in GLOB.player_list)
+			var/mob/M = m
+			var/client/C = M.client
+			if(C.prefs.toggles & SOUND_MIDI)
+				if(!stop_web_sounds)
+					C.tgui_panel?.play_music(web_sound_url, list())
+				else
+					C.tgui_panel?.stop_music()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
 
