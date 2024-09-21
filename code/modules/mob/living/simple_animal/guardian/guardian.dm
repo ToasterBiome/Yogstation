@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	stop_automated_movement = 1
 	movement_type = FLYING // Immunity to chasms and landmines, etc.
 	attack_sound = 'sound/weapons/punch1.ogg'

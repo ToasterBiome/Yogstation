@@ -25,7 +25,7 @@
 	return
 
 /obj/structure/barricade/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && bar_material == METAL)
+	if(I.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM) && bar_material == METAL)
 		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return
@@ -75,7 +75,7 @@
 				new /turf/closed/wall/mineral/wood/nonmetal(get_turf(src))
 				qdel(src)
 				return
-	else if(I.tool_behaviour == TOOL_CROWBAR && !user.combat_mode)
+	else if(I.tool_behaviour == TOOL_CROWBAR && !(user.istate & ISTATE_HARM))
 		user.visible_message("[user.name] starts prying [src.name] apart.", \
 							span_notice("You start prying the barricade apart."))
 		if(I.use_tool(src, user, 190, volume=50))
@@ -95,7 +95,7 @@
 	proj_pass_rate = 65
 
 /obj/structure/barricade/wooden/crude/attackby(obj/item/I, mob/living/user) // Make it so you cant turn crude planks into walls
-	if(I.tool_behaviour == TOOL_CROWBAR && !user.combat_mode)
+	if(I.tool_behaviour == TOOL_CROWBAR && !(user.istate & ISTATE_HARM))
 		user.visible_message("[user.name] starts prying [src.name] apart.", \
 							span_notice("You start prying the barricade apart."))
 		if(I.use_tool(src, user, 10 SECONDS, volume=50))

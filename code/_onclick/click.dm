@@ -78,28 +78,35 @@
 	if(notransform)
 		return
 
+	
+
+	var/list/modifiers = params2list(params)
+
+	if(client)
+		client.imode.update_istate(src, modifiers)
+
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
 		return
 
-	var/list/modifiers = params2list(params)
-	if(modifiers["shift"] && modifiers["middle"])
-		ShiftMiddleClickOn(A, params)
-		return
-	if(modifiers["shift"] && modifiers["ctrl"])
-		CtrlShiftClickOn(A)
-		return
-	if(modifiers["middle"])
-		MiddleClickOn(A)
-		return
-	if(modifiers["shift"])
-		ShiftClickOn(A)
-		return
-	if(modifiers["alt"]) // alt and alt-gr (rightalt)
-		AltClickOn(A)
-		return
-	if(modifiers["ctrl"])
-		CtrlClickOn(A)
-		return
+	if(!(istate & ISTATE_SECONDARY))
+		if(LAZYACCESS(modifiers, SHIFT_CLICK))
+			if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+				ShiftMiddleClickOn(A)
+				return
+			if(LAZYACCESS(modifiers, CTRL_CLICK))
+				CtrlShiftClickOn(A)
+				return
+			ShiftClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+			MiddleClickOn(A, params)
+			return
+		if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)
+			AltClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			CtrlClickOn(A)
+			return
 
 	if(incapacitated(ignore_restraints = 1))
 		return
@@ -128,7 +135,7 @@
 	var/obj/item/W = get_active_held_item()
 
 	if(W == A)
-		if(!(LAZYACCESS(modifiers, RIGHT_CLICK) && W.attack_self_secondary(src, modifiers) != SECONDARY_ATTACK_CALL_NORMAL))
+		if(!(istate & ISTATE_SECONDARY) && W.attack_self_secondary(src, modifiers) != SECONDARY_ATTACK_CALL_NORMAL)
 			W.attack_self(src, modifiers)
 		update_inv_hands()
 		return

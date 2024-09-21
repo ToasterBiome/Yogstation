@@ -87,7 +87,7 @@
 
 /obj/item/soap/afterattack(atom/target, mob/living/user, proximity)
 	. = ..()
-	if(iscarbon(target) && user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !user.combat_mode) //mmm, soap...
+	if(iscarbon(target) && user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !(user.istate & ISTATE_HARM)) //mmm, soap...
 		var/mob/living/carbon/C = user
 		user.visible_message(span_notice("[user] takes a bite out of [src.name]!"), span_notice("You gnaw on [src]! This can't be good for you..."))
 		playsound(get_turf(C), 'sound/items/eatfood.ogg', 25, 0)

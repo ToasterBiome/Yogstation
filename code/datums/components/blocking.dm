@@ -237,7 +237,7 @@
 		return
 	if(modifiers[SHIFT_CLICK] || modifiers[CTRL_CLICK] || modifiers[ALT_CLICK]) // trying to do something else
 		return
-	if(!source.mob.combat_mode) // require combat mode to block so you can still do certain right-click alt actions with it off
+	if(!source.mob.istate & ISTATE_HARM) // require combat mode to block so you can still do certain right-click alt actions with it off
 		return
 	if(source.mob.in_throw_mode) // trying to throw
 		return

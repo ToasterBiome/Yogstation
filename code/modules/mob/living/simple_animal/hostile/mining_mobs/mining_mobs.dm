@@ -12,7 +12,7 @@
 	response_disarm = "shoves"
 	response_harm = "strikes"
 	status_flags = 0
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	// Pale purple, should be red enough to see stuff on lavaland
 	lighting_cutoff_red = 25
 	lighting_cutoff_green = 15

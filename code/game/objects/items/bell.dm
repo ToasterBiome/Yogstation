@@ -62,7 +62,7 @@
 	return attack_hand(user)
 
 /obj/item/deskbell/attack_hand(mob/living/user)
-	ring(user.combat_mode)
+	ring((user.istate & ISTATE_HARM))
 	add_fingerprint(user)
 	return
 

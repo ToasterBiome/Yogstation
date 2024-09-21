@@ -127,8 +127,8 @@
 				mob_swap = TRUE
 			else if(
 				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
-				((M.restrained() && !too_strong) || !M.combat_mode) &&\
-				(restrained() || !combat_mode)
+				((M.restrained() && !too_strong) || !(M.istate & ISTATE_HARM)) &&\
+				(restrained() || !(M.istate & ISTATE_HARM))
 			)
 				mob_swap = TRUE
 		if(mob_swap)
@@ -169,7 +169,7 @@
 		if(HAS_TRAIT(L, TRAIT_PUSHIMMUNE))
 			return TRUE
 	//If they're a human, and they're in combat mode, block pushing
-	if(ishuman(M) && M.combat_mode)
+	if(ishuman(M) && M.istate & ISTATE_HARM)
 		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
@@ -350,7 +350,7 @@
 
 	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM)
-	else if(!combat_mode)
+	else if(!(istate & ISTATE_HARM))
 		stop_pulling()
 
 /mob/living/stop_pulling()

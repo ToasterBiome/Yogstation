@@ -253,7 +253,7 @@
 			update_appearance()
 		return
 
-	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && !user.combat_mode)
+	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && !(user.istate & ISTATE_HARM))
 		if(ingredients.len >= max_n_of_items)
 			to_chat(user, span_warning("\The [src] is full, you can't put anything in!"))
 			return TRUE

@@ -95,7 +95,7 @@
 		user.transferItemToLoc(O, src, TRUE)
 		return TRUE
 	else
-		if(!user.combat_mode)
+		if(!(user.istate & ISTATE_HARM))
 			to_chat(user, span_warning("That probably won't blend!"))
 			return TRUE
 		else
@@ -105,7 +105,7 @@
 	if(processing)
 		to_chat(user, span_warning("[src] is in the process of processing!"))
 		return TRUE
-	if(user.combat_mode && ismob(user.pulling) && PROCESSOR_SELECT_RECIPE(user.pulling))
+	if((user.istate & ISTATE_HARM) && ismob(user.pulling) && PROCESSOR_SELECT_RECIPE(user.pulling))
 		if(user.grab_state < GRAB_AGGRESSIVE)
 			to_chat(user, span_warning("You need a better grip to do that!"))
 			return

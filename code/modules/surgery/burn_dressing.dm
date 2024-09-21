@@ -56,7 +56,7 @@
 		display_results(user, target, span_notice("You successfully excise some of the infected flesh from [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully excises some of the infected flesh from [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully excises some of the infected flesh from [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "excised infected flesh in", addition="COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]")
+		log_combat(user, target, "excised infected flesh in", addition="COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]")
 		surgery.operated_bodypart.receive_damage(brute=3, wound_bonus=CANT_WOUND)
 		burn_wound.infestation -= infestation_removed
 		burn_wound.sanitization += sanitization_added
@@ -104,7 +104,7 @@
 		display_results(user, target, span_notice("You successfully wrap [target]'s [parse_zone(target_zone)] with [tool]."),
 			span_notice("[user] successfully wraps [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully wraps [target]'s [parse_zone(target_zone)]!"))
-		log_combat(user, target, "dressed burns in", addition="COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]")
+		log_combat(user, target, "dressed burns in", addition="COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]")
 		burn_wound.sanitization += 3
 		burn_wound.flesh_healing += 5
 		var/obj/item/bodypart/the_part = target.get_bodypart(target_zone)

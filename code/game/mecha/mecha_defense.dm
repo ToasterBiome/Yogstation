@@ -207,7 +207,7 @@
 	return ..()
 
 /obj/mecha/welder_act(mob/living/user, obj/item/tool, modifiers)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return FALSE
 	if(wrecked)
 		try_repair(tool, user)
@@ -225,7 +225,7 @@
 	return TRUE
 
 /obj/mecha/attackby(obj/item/W, mob/living/user, params)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 
 	if(wrecked)
@@ -340,7 +340,7 @@
 
 	switch(repair_state)
 		if(MECHA_WRECK_CUT)
-			if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+			if(I.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM))
 				user.visible_message(
 					span_notice("[user] begins to weld together \the [src]'s broken parts..."),
 					span_notice("You begin welding together \the [src]'s broken parts..."),
@@ -351,7 +351,7 @@
 					to_chat(user, span_notice("The parts are loosely reattached, but are dented wildly out of place."))
 
 		if(MECHA_WRECK_DENTED)
-			if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+			if(I.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM))
 				user.visible_message(
 					span_notice("[user] welds out the many, many dents in \the [src]'s chassis..."),
 					span_notice("You weld out the many, many dents in \the [src]'s chassis..."),
@@ -430,7 +430,7 @@
 
 
 /obj/mecha/mech_melee_attack(obj/mecha/M, punch_force, equip_allowed = TRUE)
-	log_combat(M.occupant, src, "attacked", M, "(COMBAT MODE: [M.occupant.combat_mode ? "ON" : "OFF"]) (DAMTYPE: [uppertext(M.damtype)])")
+	log_combat(M.occupant, src, "attacked", M, "(COMBAT MODE: [M.occupant.istate & ISTATE_HARM ? "ON" : "OFF"]) (DAMTYPE: [uppertext(M.damtype)])")
 	return ..(M, punch_force / 2, equip_allowed)
 
 /obj/mecha/proc/full_repair(charge_cell)

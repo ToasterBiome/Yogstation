@@ -168,7 +168,7 @@ GLOBAL_VAR_INIT(primary_data_core, null)
 			return
 		if(default_deconstruction_crowbar(O))
 			return TRUE	
-	if(panel_open && !user.combat_mode)
+	if(panel_open && !(user.istate & ISTATE_HARM))
 		if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 			return // Feedback in proc
 		if(HAS_TRAIT(O, TRAIT_NODROP))

@@ -14,7 +14,7 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	unique_name = 1
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	// ... Blob colored lighting
 	lighting_cutoff_red = 20
 	lighting_cutoff_green = 40

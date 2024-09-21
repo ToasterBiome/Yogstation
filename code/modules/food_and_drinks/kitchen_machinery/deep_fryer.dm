@@ -126,7 +126,7 @@ God bless America.
 	else if(default_deconstruction_screwdriver(user, "fryer_off", "fryer_off" ,I))	//where's the open maint panel icon?!
 		return
 	else
-		if(user.combat_mode)
+		if((user.istate & ISTATE_HARM))
 			return ..()
 		if((!superfry && !I.fryable) || HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
 			to_chat(user, span_warning("Your cooking skills do not allow you to fry [I]..."))
@@ -178,7 +178,7 @@ God bless America.
 			frying_burnt = FALSE
 			fry_loop.stop()
 			return
-	if(user.pulling && user.combat_mode && isliving(user.pulling))
+	if(user.pulling && (user.istate & ISTATE_HARM) && isliving(user.pulling))
 		if(superfry)
 			var/mob/living/H = user.pulling
 			if(H.stat == DEAD)
@@ -194,7 +194,7 @@ God bless America.
 				qdel(H)
 				fry_loop.start()
 				return
-	if(user.pulling && user.combat_mode && ishuman(user.pulling))
+	if(user.pulling && (user.istate & ISTATE_HARM) && ishuman(user.pulling))
 		var/mob/living/carbon/human/the_guy = user.pulling
 		var/list/missing_limbs = the_guy.get_missing_limbs()
 		if(missing_limbs.len >= 4)
@@ -212,7 +212,7 @@ God bless America.
 			qdel(the_guy)
 			return
 
-	if(user.pulling && user.combat_mode && iscarbon(user.pulling) && reagents.total_volume && isliving(user.pulling))
+	if(user.pulling && (user.istate & ISTATE_HARM) && iscarbon(user.pulling) && reagents.total_volume && isliving(user.pulling))
 		var/mob/living/carbon/C = user.pulling
 		if(user.grab_state < GRAB_AGGRESSIVE)
 			to_chat(user, span_warning("You need a better grip to do that!"))

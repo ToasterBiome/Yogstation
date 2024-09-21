@@ -27,7 +27,7 @@
 	icon_living = "lesserdaemon"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	speed = 0.25
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/magic/demon_attack1.ogg'

@@ -75,7 +75,7 @@
 			O.add_fingerprint(user)
 			update_appearance(UPDATE_ICON)
 
-	else if(O.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+	else if(O.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM))
 		if(atom_integrity < max_integrity)
 			if(!O.tool_start_check(user, amount=0))
 				return

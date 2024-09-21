@@ -223,7 +223,7 @@
 
 	if(panel_open)
 
-		if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+		if(W.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM))
 			if(atom_integrity < max_integrity)
 				if(!W.tool_start_check(user, amount=0))
 					return

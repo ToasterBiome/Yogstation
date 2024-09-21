@@ -235,7 +235,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_panel = new(src, "browseroutput")
 
 	// Set the right-click menu mode
-	set_right_click_menu_mode(TRUE)
+	set_right_click_menu_mode()
 
 	//tgui_panel.send_connected()
 
@@ -1134,6 +1134,28 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		holder.particool = new /datum/particle_editor(in_atom)
 		holder.particool.ui_interact(mob)
 
+///Sets the behavior of rightclick & shift rightclick. See _interaction_modes.dm
+/client/proc/set_right_click_menu_mode()
+	var/rclick_type
+	if(mob?.rclick_always_context_menu)
+		rclick_type = RIGHTCLICK_BOTH
+	else
+		rclick_type = context_menu_requires_shift
+
+	switch(rclick_type)
+		if(RIGHTCLICK_NOSHIFT) //Right click opens context menu
+			winset(src, "mapwindow.map", "right-click=false")
+			winset(src, "ShiftUp", "command=\".winset :map.right-click=false\"")
+			winset(src, "Shift", "command=\".winset :map.right-click=true\"")
+		if(RIGHTCLICK_SHIFT) //Shift right click opens context menu
+			winset(src, "mapwindow.map", "right-click=true")
+			winset(src, "ShiftUp", "command=\".winset :map.right-click=true\"")
+			winset(src, "Shift", "command=\".winset :map.right-click=false\"")
+		if(RIGHTCLICK_BOTH) //Both open context menu
+			winset(src, "mapwindow.map", "right-click=false")
+			winset(src, "ShiftUp", "command=\".winset :map.right-click=false\"")
+			winset(src, "Shift", "command=\".winset :map.right-click=false\"")
+
 /// Clears the client's screen, aside from ones that opt out
 /client/proc/clear_screen()
 	for (var/object in screen)
@@ -1143,13 +1165,3 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				continue
 
 		screen -= object
-
-/client/proc/set_right_click_menu_mode(shift_only = TRUE)
-	if(shift_only)
-		winset(src, "mapwindow.map", "right-click=true")
-		winset(src, "ShiftUp", "is-disabled=false")
-		winset(src, "Shift", "is-disabled=false")
-	else
-		winset(src, "mapwindow.map", "right-click=false")
-		winset(src, "default.Shift", "is-disabled=true")
-		winset(src, "default.ShiftUp", "is-disabled=true")

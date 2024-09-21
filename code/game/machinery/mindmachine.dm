@@ -217,7 +217,7 @@
 
 /obj/machinery/mindmachine_hub/attackby(obj/item/I, mob/living/user, params)
 	// Connection
-	if(!user.combat_mode && I.tool_behaviour == TOOL_MULTITOOL)
+	if(!(user.istate & ISTATE_HARM) && I.tool_behaviour == TOOL_MULTITOOL)
 		if(panel_open && fail_regardless)
 			to_chat(user, span_notice("You realign [src]'s regulator."))
 			fail_regardless = FALSE
@@ -682,7 +682,7 @@
 
 /obj/machinery/mindmachine_pod/attackby(obj/item/I, mob/living/user, params)
 	// Force Unlock
-	if(!user.combat_mode && I.tool_behaviour == TOOL_CROWBAR)
+	if(!(user.istate & ISTATE_HARM) && I.tool_behaviour == TOOL_CROWBAR)
 		if(do_after(user, 1 SECONDS, src))
 			open_machine()
 			return

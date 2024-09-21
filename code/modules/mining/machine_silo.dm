@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 /obj/machinery/ore_silo/proc/remote_attackby(obj/machinery/M, mob/living/user, obj/item/stack/I)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	// stolen from /datum/component/material_container/proc/OnAttackBy
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return
 	if(I.item_flags & ABSTRACT)
 		return
@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	return TRUE
 
 /obj/machinery/ore_silo/attackby(obj/item/W, mob/living/user, params)
-	if(user.combat_mode) //so we can hit the machine
+	if((user.istate & ISTATE_HARM)) //so we can hit the machine
 		return ..()
 	
 	if(default_deconstruction_screwdriver(user, "icon_state", "icon_state", W))

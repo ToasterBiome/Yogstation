@@ -38,7 +38,7 @@
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		reset_lock(user) // Yogs - Adds reset option.
 		return
-	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && !broken)
+	if(I.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM) && !broken)
 		//Repairing light damage with a welder
 		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=2))
@@ -201,7 +201,7 @@
 	return
 
 /obj/structure/fireaxecabinet/attack_robot(mob/living/silicon/user, modifiers)
-	if(user.combat_mode || (modifiers && modifiers[RIGHT_CLICK])) // In the case they still want to try to `reset_lock` instead of `toggle_lock`.
+	if((user.istate & ISTATE_HARM) || (modifiers && modifiers[RIGHT_CLICK])) // In the case they still want to try to `reset_lock` instead of `toggle_lock`.
 		reset_lock(user)
 		return
 	. = ..()

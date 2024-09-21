@@ -420,7 +420,7 @@
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/living/user, params)
-	if(W.tool_behaviour == TOOL_WELDER && (!user.combat_mode || user == src))
+	if(W.tool_behaviour == TOOL_WELDER && (!(user.istate & ISTATE_HARM) || user == src))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if (!getBruteLoss())
 			to_chat(user, span_warning("[src] is already in good condition!"))
@@ -461,7 +461,7 @@
 		else
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 
-	else if(W.tool_behaviour == TOOL_CROWBAR && (!user.combat_mode || user == src))	// crowbar means open or close the cover
+	else if(W.tool_behaviour == TOOL_CROWBAR && (!(user.istate & ISTATE_HARM) || user == src))	// crowbar means open or close the cover
 		if(opened)
 			to_chat(user, span_notice("You close the cover."))
 			opened = 0
@@ -547,7 +547,7 @@
 		else
 			to_chat(user, span_warning("Unable to locate a radio!"))
 
-	else if(W.GetID() && !user.combat_mode)			// trying to unlock the interface with an ID card unless combat mode is on.
+	else if(W.GetID() && !(user.istate & ISTATE_HARM))			// trying to unlock the interface with an ID card unless combat mode is on.
 		togglelock(user)
 
 	else if(istype(W, /obj/item/borg/upgrade/))

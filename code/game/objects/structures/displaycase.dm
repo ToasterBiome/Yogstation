@@ -108,7 +108,7 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  span_alert("Access denied."))
-	else if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode && !broken)
+	else if(W.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM) && !broken)
 		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
 				return
@@ -178,7 +178,7 @@
 	    //prevents remote "kicks" with TK
 		if (!Adjacent(user))
 			return
-		if (!user.combat_mode)
+		if (!(user.istate & ISTATE_HARM))
 			user.examinate(src)
 			return
 		user.visible_message(span_danger("[user] kicks the display case."), null, null, COMBAT_MESSAGE_RANGE)
@@ -281,7 +281,7 @@
 
 	if(!user.Adjacent(src)) //no TK museology
 		return
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 
 	if(user.is_holding_item_of_type(/obj/item/key/displaycase))

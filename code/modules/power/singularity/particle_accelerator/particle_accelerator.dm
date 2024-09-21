@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/structure/particle_accelerator/attackby(obj/item/W, mob/living/user, params)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 	switch(construction_state)
 		if(PA_CONSTRUCTION_UNSECURED)

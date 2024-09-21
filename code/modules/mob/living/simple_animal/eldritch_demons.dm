@@ -11,7 +11,7 @@
 	speak_chance = 1
 	icon = 'icons/mob/eldritch_mobs.dmi'
 	speed = 0
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	stop_automated_movement = 1
 	AIStatus = AI_OFF
 	attack_sound = 'sound/weapons/punch1.ogg'

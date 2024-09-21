@@ -177,7 +177,7 @@
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		var/hulk_verb = pick("smash","pummel")
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
@@ -194,9 +194,9 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.combat_mode && handle_vamp_biting(H)) // yogs start -- vampire biting
+		if(H.istate & ISTATE_HARM && handle_vamp_biting(H)) // yogs start -- vampire biting
 			return // yogs end
-		if(H.combat_mode)
+		if(H.istate & ISTATE_HARM)
 			last_damage = "fist"
 		dna.species.spec_attack_hand(H, src, user.mind?.martial_art, modifiers)
 
@@ -226,7 +226,7 @@
 					span_userdanger("[M] has tackled down [src]!"))
 		return
 	
-	if(!M.combat_mode)
+	if(!M.istate & ISTATE_HARM)
 		..() //shaking
 		return 0
 
@@ -272,7 +272,7 @@
 				log_combat(M, src, "tackled")
 				visible_message(span_danger("[M] has tackled down [src]!"), \
 					span_userdanger("[M] has tackled down [src]!"))
-		else if(M.combat_mode)
+		else if(M.istate & ISTATE_HARM)
 			if (w_uniform)
 				w_uniform.add_fingerprint(M)
 			var/damage = prob(90) ? 20 : 0
@@ -351,7 +351,7 @@
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M, punch_force, equip_allowed = TRUE)
 	if(M.selected?.melee_override && equip_allowed)
 		M.selected.action(src)
-	else if(M.occupant.combat_mode)
+	else if(M.occupant.istate & ISTATE_HARM)
 		M.do_attack_animation(src)
 		if(check_shields(M, punch_force, "[M]", MELEE_ATTACK, damage_type = M.damtype)) // you sure can try
 			return
@@ -384,7 +384,7 @@
 
 		visible_message(span_danger("[M.name] has hit [src]!"), \
 								span_userdanger("[M.name] has hit [src]!"), null, COMBAT_MESSAGE_RANGE)
-		log_combat(M.occupant, src, "attacked", M, "(COMBAT MODE: [M.occupant.combat_mode]) (DAMTYPE: [uppertext(M.damtype)])")
+		log_combat(M.occupant, src, "attacked", M, "(COMBAT MODE: [M.occupant.istate & ISTATE_HARM]) (DAMTYPE: [uppertext(M.damtype)])")
 
 	else
 		..()

@@ -38,7 +38,7 @@
 	return ..()
 
 /obj/item/clothing/gloves/gasharpoon/proc/on_click(mob/living/user, atom/target, params)
-	if(!user.combat_mode || !isturf(user.loc))
+	if(!(user.istate & ISTATE_HARM) || !isturf(user.loc))
 		return NONE
 	var/list/modifiers = params2list(params)
 	if(modifiers[SHIFT_CLICK] || modifiers[CTRL_CLICK] || modifiers[ALT_CLICK])
@@ -63,7 +63,7 @@
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /obj/item/clothing/gloves/gasharpoon/proc/power_harpoon(mob/living/user, atom/movable/target)
-	if(!user || !user.combat_mode || (!isliving(target) && !isobj(target)) || isitem(target))
+	if(!user || !(user.istate & ISTATE_HARM) || (!isliving(target) && !isobj(target)) || isitem(target))
 		return NONE
 	do_attack(user, target, force * 2)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1)

@@ -122,7 +122,7 @@
 			new /obj/item/stack/cable_coil(T, messiness, new_color)
 			qdel(src)
 
-	if(istype(I, /obj/item/stack/cable_coil) && user.combat_mode)
+	if(istype(I, /obj/item/stack/cable_coil) && (user.istate & ISTATE_HARM))
 		var/obj/item/stack/cable_coil/coil = I
 		if(coil.get_amount() >= 1)
 			reinforce(user, coil)

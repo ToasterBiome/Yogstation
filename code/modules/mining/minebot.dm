@@ -13,7 +13,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	weather_immunities = WEATHER_STORM
 	faction = list("neutral")
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	minbodytemp = 0
@@ -122,7 +122,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!M.combat_mode)
+	if(!M.istate & ISTATE_HARM)
 		toggle_mode()
 		switch(mode)
 			if(MINEDRONE_COLLECT)

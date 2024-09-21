@@ -670,7 +670,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
-	log_combat(user, M, "attacked", "[src.name]", "(COMBAT_MODE: [user.combat_mode ? "ON" : "OFF"])")
+	log_combat(user, M, "attacked", "[src.name]", "(COMBAT_MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"])")
 
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
@@ -1163,7 +1163,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/t_color = "#ffffff" //yogs start
 	if(ismob(src) &&  ismob(attacked_atom) && (!used_item))
 		var/mob/living/M = src
-		t_color = M.combat_mode ? "#ff0000" : "#ffffff"
+		t_color = M.istate & ISTATE_HARM ? "#ff0000" : "#ffffff"
 	animate(attack_image, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
 	animate(time = 1)
 	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT) //yogs end

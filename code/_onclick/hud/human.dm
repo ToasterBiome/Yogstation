@@ -78,6 +78,9 @@
 	icon_state = "power_display"
 	screen_loc = ui_lingchemdisplay
 
+/datum/hud/human
+	has_interaction_ui = TRUE
+
 /datum/hud/human/New(mob/living/carbon/human/owner)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
@@ -100,11 +103,6 @@
 	if(!widescreen_layout)
 		using.screen_loc = UI_BOXAREA
 	static_inventory += using
-
-	action_intent = new /atom/movable/screen/combattoggle/flashy(src)
-	action_intent.icon = ui_style
-	action_intent.screen_loc = ui_combat_toggle
-	static_inventory += action_intent
 
 	using = new /atom/movable/screen/mov_intent(src)
 	using.icon = ui_style

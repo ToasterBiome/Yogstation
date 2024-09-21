@@ -132,7 +132,7 @@
 	target.add_fingerprint(user, FALSE)
 	if((target == user) || (isopenturf(target)) || (iswallturf(target)) || (isitem(target)) || (iseffect(target)))
 		return
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		return
 	if(!COOLDOWN_FINISHED(src, next_grapple))
 		to_chat(user, span_warning("You can't do that yet!"))
@@ -182,7 +182,7 @@
 
 
 /datum/martial_art/buster_style/proc/lob(mob/living/user, atom/target, distance = 0) //proc for throwing something you picked up with grapple
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		return
 	var/throwdam = 15
 	var/target_dist = get_dist(user, target)
@@ -394,7 +394,7 @@
 ---------------------------------------------------------------*/
 
 /datum/martial_art/buster_style/proc/slam(mob/living/user, mob/living/target)
-	if(!isliving(target) || !user.combat_mode || user == target)
+	if(!isliving(target) || !(user.istate & ISTATE_HARM) || user == target)
 		return
 	var/turf/Z = get_turf(user)
 	if(!COOLDOWN_FINISHED(src, next_slam))

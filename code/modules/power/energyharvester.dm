@@ -74,7 +74,7 @@ obj/item/energy_harvester/Initialize(mapload)
 	set_light(0)
 
 /obj/item/energy_harvester/attack_hand(mob/living/user, params)
-	if(anchored && !user.combat_mode)
+	if(anchored && !(user.istate & ISTATE_HARM))
 		ui_interact(user)
 	return ..()
 

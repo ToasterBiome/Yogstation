@@ -462,7 +462,7 @@
 	return TOXLOSS
 
 /obj/item/reagent_containers/food/drinks/soda_cans/attack(mob/M, mob/living/user)
-	if(M == user && !src.reagents.total_volume && user.combat_mode && user.zone_selected == BODY_ZONE_HEAD)
+	if(M == user && !src.reagents.total_volume && (user.istate & ISTATE_HARM) && user.zone_selected == BODY_ZONE_HEAD)
 		user.visible_message(span_warning("[user] crushes the can of [src] on [user.p_their()] forehead!"), span_notice("You crush the can of [src] on your forehead."))
 		playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
 		var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)

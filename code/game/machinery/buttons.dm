@@ -136,7 +136,7 @@
 		update_appearance()
 		return
 
-	if(!user.combat_mode && !(W.item_flags & NOBLUDGEON))
+	if(!(user.istate & ISTATE_HARM) && !(W.item_flags & NOBLUDGEON))
 		var/list/modifiers = params2list(params)
 		return attack_hand(user, modifiers)
 	else if(istype(W, /obj/item/airlock_scanner))		//yogs start

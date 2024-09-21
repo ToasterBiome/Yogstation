@@ -71,7 +71,7 @@
 
 /mob/living/carbon/human/get_status_tab_items()
 	. = ..()
-	. += "Combat mode: [combat_mode ? "On" : "Off"]"
+	. += "Interaction mode: [istate]"
 	. += "Move Mode: [m_intent]"
 	var/obj/item/tank/target_tank = internal || external
 	if(target_tank)
@@ -905,7 +905,7 @@
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
-	if (istype(target) && target.stat == CONSCIOUS && !combat_mode)
+	if (istype(target) && target.stat == CONSCIOUS && !(istate & ISTATE_HARM))
 		return TRUE
 	return FALSE
 

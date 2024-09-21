@@ -545,7 +545,7 @@
 		if(do_after(H, 3 SECONDS, src))
 			tip_over(H)
 
-	else if(!H.combat_mode && mode == BOT_TIPPED)
+	else if(!H.istate & ISTATE_HARM && mode == BOT_TIPPED)
 		H.visible_message(span_notice("[H] begins righting [src]."), span_notice("You begin righting [src]..."))
 		if(do_after(H, 3 SECONDS, src))
 			set_right(H)

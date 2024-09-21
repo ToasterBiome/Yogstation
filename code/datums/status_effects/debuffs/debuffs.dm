@@ -911,7 +911,7 @@
 					owner.log_message("used [I] due to a Muscle Spasm", LOG_ATTACK)
 					I.attack_self(owner)
 			if(3)
-				var/prev_intent = owner.combat_mode
+				var/prev_intent = owner.istate & ISTATE_HARM
 				owner.set_combat_mode(TRUE)
 
 				var/range = 1
@@ -928,7 +928,7 @@
 					owner.ClickOn(pick(targets))
 				owner.set_combat_mode(prev_intent)
 			if(4)
-				var/prev_intent = owner.combat_mode
+				var/prev_intent = owner.istate & ISTATE_HARM
 				owner.set_combat_mode(TRUE)
 				to_chat(owner, span_warning("Your arm spasms!"))
 				owner.log_message("attacked [owner.p_them()]self to a Muscle Spasm", LOG_ATTACK)
@@ -1240,7 +1240,7 @@
 
 /datum/status_effect/amok/tick()
 	. = ..()
-	var/prev_intent = owner.combat_mode
+	var/prev_intent = owner.istate & ISTATE_HARM
 	owner.set_combat_mode(TRUE)
 
 	var/list/mob/living/targets = list()

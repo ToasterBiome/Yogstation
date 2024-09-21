@@ -79,7 +79,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
 		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && !user.combat_mode)
+	if(lit && cig && !(user.istate & ISTATE_HARM))
 		if(cig.lit)
 			to_chat(user, span_notice("[cig] is already lit."))
 		if(M == user)
@@ -159,7 +159,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return ..()
 
 /obj/item/clothing/mask/cigarette/attack_hand(mob/user, modifiers)
-	if(!lit && isethereal(user) && user.combat_mode)
+	if(!lit && isethereal(user) && (user.istate & ISTATE_HARM))
 		light("With a snap of [user.p_their()] fingers, [user] lights [src].")
 		return
 	return ..()
@@ -297,7 +297,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		light(span_notice("[user] lights [src] with [M]'s burning body. What a cold-blooded badass."))
 		return
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && !user.combat_mode)
+	if(lit && cig && !(user.istate & ISTATE_HARM))
 		if(cig.lit)
 			to_chat(user, span_notice("The [cig.name] is already lit."))
 		if(M == user)
@@ -669,7 +669,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
 		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && !user.combat_mode)
+	if(lit && cig && !(user.istate & ISTATE_HARM))
 		if(cig.lit)
 			to_chat(user, span_notice("The [cig.name] is already lit."))
 		if(M == user)

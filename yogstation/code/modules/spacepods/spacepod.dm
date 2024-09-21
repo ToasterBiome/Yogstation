@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(spacepods_list, list())
 	return ..()
 
 /obj/spacepod/attackby(obj/item/W, mob/living/user)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 	else if(construction_state != SPACEPOD_ARMOR_WELDED)
 		. = handle_spacepod_construction(W, user)
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(spacepods_list, list())
 	return ..()
 
 /obj/spacepod/attack_hand(mob/living/user)
-	if(user.combat_mode && !locked)
+	if((user.istate & ISTATE_HARM) && !locked)
 		var/mob/living/target
 		if(pilot)
 			target = pilot

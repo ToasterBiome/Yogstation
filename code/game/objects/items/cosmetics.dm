@@ -146,7 +146,7 @@
 		if(isvox(H))
 			hair_name = "quills"
 		if(location == BODY_ZONE_PRECISE_MOUTH)
-			if(!user.combat_mode)
+			if(!(user.istate & ISTATE_HARM))
 				if(H.gender == MALE)
 					if (H == user)
 						to_chat(user, span_warning("You need a mirror to properly style your own facial [hair_name]!"))
@@ -207,7 +207,7 @@
 						shave(H, location)
 
 		else if(location == BODY_ZONE_HEAD)
-			if(!user.combat_mode)
+			if(!(user.istate & ISTATE_HARM))
 				if (H == user)
 					to_chat(user, span_warning("You need a mirror to properly style your own [hair_name]!"))
 					return

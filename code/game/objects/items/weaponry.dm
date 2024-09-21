@@ -28,7 +28,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	else
 		M.visible_message(span_danger("[M] has been banned FOR NO REISIN by [user]"), span_userdanger("You have been banned FOR NO REISIN by [user]"), "you hear a banhammer banning someone")
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 
 /obj/item/sord
@@ -778,7 +778,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 	var/slap_volume = 30
 	var/hard_slap = FALSE
-	if(!HAS_TRAIT(user, TRAIT_PACIFISM) && user.combat_mode)
+	if(!HAS_TRAIT(user, TRAIT_PACIFISM) && (user.istate & ISTATE_HARM))
 		hard_slap = TRUE
 		slap_volume = 60
 		force = 2
@@ -807,7 +807,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(!proximity_flag)
 		return
 
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		transform = transform.Scale(5) // BIG slap
 		if(HAS_TRAIT(user, TRAIT_HULK))
 			transform = transform.Scale(2)

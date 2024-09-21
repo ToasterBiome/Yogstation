@@ -38,7 +38,7 @@
 
 /mob/living/simple_animal/pet/dog/eggdog/attack_hand(mob/living/L)
 	..()
-	if(L.combat_mode && L.reagents && !stat)
+	if(L.istate & ISTATE_HARM && L.reagents && !stat)
 		L.reagents.add_reagent(/datum/reagent/consumable/eggyolk, 0.4)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
 		L.reagents.add_reagent(/datum/reagent/growthserum, 0.4)

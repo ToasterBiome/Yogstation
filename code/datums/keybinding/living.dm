@@ -53,7 +53,7 @@
 	if(.)
 		return
 	var/mob/living/user_mob = user.mob
-	user_mob.set_combat_mode(!user_mob.combat_mode, FALSE, FALSE)
+	user_mob.set_combat_mode(!user_mob.istate & ISTATE_HARM, FALSE, FALSE)
 
 /datum/keybinding/living/enable_combat_mode
 	hotkey_keys = list("4")

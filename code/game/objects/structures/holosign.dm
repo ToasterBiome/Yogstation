@@ -186,7 +186,7 @@
 	return TRUE
 
 /obj/structure/holosign/barrier/medical/attack_hand(mob/living/user, modifiers)
-	if(CanPass(user) && !user.combat_mode)
+	if(CanPass(user) && !(user.istate & ISTATE_HARM))
 		force_allaccess = !force_allaccess
 		to_chat(user, span_warning("You [force_allaccess ? "deactivate" : "activate"] the biometric scanners.")) //warning spans because you can make the station sick!
 	else
@@ -237,7 +237,7 @@
 	icon_state = "[initial(icon_state)][stasis ? "" : "_off"]"
 
 /obj/structure/holobed/AltClick(mob/living/user)
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		stasis = !stasis
 		handle_stasis(occupant)
 		update_appearance(UPDATE_ICON)

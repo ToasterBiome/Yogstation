@@ -380,7 +380,7 @@
 	if(L != src)
 		enemies[L] += MONKEY_HATRED_AMOUNT
 
-	if(!combat_mode)
+	if(!(istate & ISTATE_HARM))
 		battle_screech()
 		set_combat_mode(TRUE)
 

@@ -1916,18 +1916,26 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(attacker.mind)
 		attacker_style = attacker.mind.martial_art
 	var/disarming = (modifiers && modifiers[RIGHT_CLICK])
-	if((attacker != defender) && (attacker.combat_mode || disarming) && defender.check_shields(attacker, 0, attacker.name, UNARMED_ATTACK, 0, attacker.dna.species.attack_type))
+	if((attacker != defender) && (attacker.istate & ISTATE_HARM || disarming) && defender.check_shields(attacker, 0, attacker.name, UNARMED_ATTACK, 0, attacker.dna.species.attack_type))
 		if(istype(attacker_style, /datum/martial_art/flyingfang) && disarming)
 			disarm(attacker, defender, attacker_style)
 			return
 		log_combat(attacker, defender, "attempted to touch")
 		defender.visible_message(span_warning("[attacker] attempted to touch [defender]!"))
 		return
-	SEND_SIGNAL(attacker, COMSIG_MOB_ATTACK_HAND, attacker, defender, attacker_style, modifiers)
-	if(disarming)
+	SEND_SIGNAL(attacker, COMSIG_MOB_ATTACK_HAND, attacker, defender, attacker_style)
+	//monkesstation edit start
+	if(attacker.istate & ISTATE_SECONDARY)
+		if(istype(attacker.client?.imode, /datum/interaction_mode/intents3))
+			var/datum/interaction_mode/intents3/clients_interaction = attacker.client.imode
+			if(clients_interaction.intent != INTENT_DISARM)
+				return // early end because of intent type
 		disarm(attacker, defender, attacker_style)
-	else if(attacker.combat_mode)
+		return // dont attack after
+	if(attacker.istate & ISTATE_HARM)
 		harm(attacker, defender, attacker_style)
+	else if (attacker.istate & ISTATE_CONTROL)
+		grab(attacker, defender, attacker_style)
 	else
 		help(attacker, defender, attacker_style)
 
@@ -1953,7 +1961,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/Iwound_bonus = I.wound_bonus
 
 	// this way, you can't wound with a surgical tool without combat mode if they have a surgery active and are laying down, so a misclick with a circular saw on the wrong limb doesn't bleed them dry (they still get hit tho)
-	if((I.item_flags & SURGICAL_TOOL) && !user.combat_mode && (H.mobility_flags & ~MOBILITY_STAND) && (LAZYLEN(H.surgeries) > 0))
+	if((I.item_flags & SURGICAL_TOOL) && !(user.istate & ISTATE_HARM) && (H.mobility_flags & ~MOBILITY_STAND) && (LAZYLEN(H.surgeries) > 0))
 		Iwound_bonus = CANT_WOUND
 
 	var/weakness = H.check_weakness(I, user)

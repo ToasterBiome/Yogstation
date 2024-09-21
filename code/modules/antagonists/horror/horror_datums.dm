@@ -213,7 +213,7 @@
 	return ..()
 
 /obj/item/horrortentacle/proc/on_pull(mob/living/user, mob/living/target)
-	if(!isliving(target) || !user.combat_mode)
+	if(!isliving(target) || !(user.istate & ISTATE_HARM))
 		return
 	target.grabbedby(user)
 	target.grippedby(user, instant=TRUE)
@@ -225,7 +225,7 @@
 		user.Beam(target,"purpletentacle",time=5)
 		var/mob/living/L = target
 		var/list/modifiers = params2list(params)
-		if(!user.combat_mode)
+		if(!(user.istate & ISTATE_HARM))
 			L.attack_hand(user, modifiers)
 			return
 		else if(modifiers && modifiers[RIGHT_CLICK])

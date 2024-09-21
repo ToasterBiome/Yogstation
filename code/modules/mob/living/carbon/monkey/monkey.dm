@@ -92,7 +92,7 @@
 
 /mob/living/carbon/monkey/get_status_tab_items()
 	. = ..()
-	. += "Combat Mode: [combat_mode ? "On" : "Off"]"
+	. += "Interaction mode: [istate]"
 	. += "Move Mode: [m_intent]"
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)

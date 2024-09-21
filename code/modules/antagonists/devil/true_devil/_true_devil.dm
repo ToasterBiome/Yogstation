@@ -177,7 +177,7 @@
 					else
 						playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 						visible_message(span_danger("[M] has attempted to disarm [src]!"))
-		else if(M.combat_mode)
+		else if(M.istate & ISTATE_HARM)
 			var/damage = rand(1, 5)
 			playsound(loc, "punch", 25, 1, -1)
 			visible_message(span_danger("[M] has punched [src]!"), \

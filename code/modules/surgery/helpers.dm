@@ -5,7 +5,7 @@
 	var/mob/living/carbon/C
 	var/obj/item/bodypart/affecting
 	var/selected_zone = user.zone_selected
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return FALSE
 
 	if(iscarbon(M))

@@ -119,11 +119,6 @@
 	/// How many ticks this mob has been over reating
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 
-	///Whether combat mode is enabled
-	var/combat_mode = FALSE
-	///Whether combat mode can be toggled
-	var/can_toggle_combat = TRUE
-
 	/// The movement intent of the mob (run/wal)
 	var/m_intent = MOVE_INTENT_RUN//Living
 
@@ -258,3 +253,9 @@
 
 	var/fake_client = FALSE // Currently only used for examines
 
+	///If set to true, this mob will have rightclick always act as the context menu
+	var/rclick_always_context_menu = null
+	/// Path to forced interaction mode, should be used for mobs that have special interaction modes such as cyborgs.
+	var/forced_interaction_mode
+	/// The interaction state of this mob, istate for short because typing interaction_state is annoying.
+	var/istate = NONE

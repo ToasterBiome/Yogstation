@@ -282,7 +282,7 @@
 
 	for(var/datum/surgery/S in surgeries)
 		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
-			if((S.self_operable || user != src) && !user.combat_mode)
+			if((S.self_operable || user != src) && !(user.istate & ISTATE_HARM))
 				if(S.next_step(user, modifiers))
 					return TRUE
 
@@ -306,7 +306,7 @@
 		if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 			ContactContractDisease(D)
 
-	if(!M.combat_mode)
+	if(!M.istate & ISTATE_HARM)
 		help_shake_act(M)
 		return FALSE
 

@@ -61,7 +61,7 @@
 
 /mob/living/simple_animal/pet/attack_hand(mob/living/carbon/human/M, modifiers)
 	. = ..()
-	wuv(M, !M.combat_mode)
+	wuv(M, !M.istate & ISTATE_HARM)
 
 /mob/living/simple_animal/pet/Initialize(mapload)
 	. = ..()

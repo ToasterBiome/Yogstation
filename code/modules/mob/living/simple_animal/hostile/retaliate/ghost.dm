@@ -10,7 +10,7 @@
 	response_help = "passes through"
 	response_disarm = "shoves"
 	response_harm = "hits"
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	healable = 0
 	speed = 0
 	maxHealth = 40

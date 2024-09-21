@@ -43,7 +43,7 @@
 /mob/living/silicon/pai/attack_hand(mob/living/carbon/human/user, modifiers)
 	if(modifiers && modifiers[RIGHT_CLICK])
 		visible_message(span_notice("[user] boops [src] on the head!"))
-	else if(user.combat_mode)
+	else if((user.istate & ISTATE_HARM))
 		user.do_attack_animation(src)
 		if (user.name == master)
 			visible_message(span_notice("Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence."))

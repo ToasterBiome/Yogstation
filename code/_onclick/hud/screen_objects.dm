@@ -319,23 +319,28 @@
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "combat_off"
 	screen_loc = ui_combat_toggle
+	var/datum/interaction_mode/combat_mode/combat_mode
 
 /atom/movable/screen/combattoggle/New(loc, ...)
 	. = ..()
 	update_appearance(UPDATE_ICON)
 
+/atom/movable/screen/combattoggle/Destroy()
+	. = ..()
+	combat_mode = null
+
 /atom/movable/screen/combattoggle/Click()
 	if(isliving(usr))
-		var/mob/living/owner = usr
-		owner.set_combat_mode(!owner.combat_mode, FALSE)
+		combat_mode.combat_mode = !combat_mode.combat_mode
+		combat_mode.update_istate(usr, null)
 		update_appearance(UPDATE_ICON)
 
 /atom/movable/screen/combattoggle/update_icon_state()
-	. = ..()
 	var/mob/living/user = hud?.mymob
 	if(!istype(user) || !user.client)
-		return
-	icon_state = user.combat_mode ? "combat" : "combat_off" //Treats the combat_mode
+		return ..()
+	icon_state = combat_mode.combat_mode ? "combat" : "combat_off" //Treats the combat_mode
+	return ..()
 
 //Version of the combat toggle with the flashy overlay
 /atom/movable/screen/combattoggle/flashy
@@ -348,15 +353,38 @@
 	if(!istype(user) || !user.client)
 		return
 
-	if(user.combat_mode)
-		if(!flashy)
-			flashy = mutable_appearance('icons/mob/screen_gen.dmi', "togglefull_flash")
-			flashy.color = "#C62727"
-		. += flashy
+	if(!(user.istate & ISTATE_HARM))
+		return
+
+	if(!flashy)
+		flashy = mutable_appearance('icons/mob/screen_gen.dmi', "togglefull_flash")
+		flashy.color = "#C62727"
+	. += flashy
 
 /atom/movable/screen/combattoggle/robot
 	icon = 'icons/mob/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
+
+/atom/movable/screen/act_intent3
+	name = "intent"
+	icon_state = "help"
+	screen_loc = ui_acti
+	var/datum/interaction_mode/intents3/intents
+
+/atom/movable/screen/act_intent3/Click(location, control, params)
+	var/list/paramlist = params2list(params)
+	var/_x = text2num(paramlist["icon-x"])
+	var/_y = text2num(paramlist["icon-y"])
+	if(_x < 17 && _y < 17)
+		intents.intent = INTENT_HARM
+	else if(_x >= 17 && _y >= 17)
+		intents.intent = INTENT_DISARM
+	else if(_x < 17 && _y >= 17 )
+		intents.intent = INTENT_HELP
+	else if(_x >= 17 && _y < 17)
+		intents.intent = INTENT_GRAB
+
+	intents.update_istate(usr, null)
 
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"

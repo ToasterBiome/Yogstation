@@ -97,7 +97,7 @@
 /obj/item/clothing/gloves/rapid/Touch(mob/living/target,proximity = TRUE)
 	var/mob/living/M = loc
 
-	if(M.combat_mode)
+	if(M.istate & ISTATE_HARM)
 		M.changeNext_move(CLICK_CD_RAPID)
 		if(warcry)
 			M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
@@ -116,9 +116,9 @@
 /obj/item/clothing/gloves/rapid/hug/Touch(mob/living/target, proximity = TRUE, modifiers)
 	var/mob/living/M = loc
 
-	if(!M.combat_mode && !(modifiers && modifiers[RIGHT_CLICK]))
+	if(!M.istate & ISTATE_HARM && !(modifiers && modifiers[RIGHT_CLICK]))
 		M.changeNext_move(CLICK_CD_RAPID)
-	else if(M.combat_mode)
+	else if(M.istate & ISTATE_HARM)
 		to_chat(M, span_warning("You don't want to hurt anyone, just give them hugs!"))
 		M.set_combat_mode(FALSE)
 	. = FALSE

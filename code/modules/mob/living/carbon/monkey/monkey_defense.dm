@@ -43,7 +43,7 @@
 			else if(dropItemToGround(get_active_held_item()))
 				playsound(src, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				visible_message(span_danger("[M] has disarmed [src]!"), span_userdanger("[M] has disarmed [src]!"), null, COMBAT_MESSAGE_RANGE)
-	else if(M.combat_mode)
+	else if(M.istate & ISTATE_HARM)
 		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		if (prob(75))
 			last_damage = "fist"
@@ -89,7 +89,7 @@
 					I = null
 			log_combat(M, src, "disarmed", "[I ? " removing \the [I]" : ""]")
 			updatehealth()
-		else if(M.combat_mode)
+		else if(M.istate & ISTATE_HARM)
 			if ((prob(95) && health > 0))
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)

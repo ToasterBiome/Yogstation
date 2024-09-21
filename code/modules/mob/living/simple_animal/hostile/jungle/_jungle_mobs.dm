@@ -11,7 +11,7 @@
 	response_disarm = "shoves"
 	response_harm = "strikes"
 	status_flags = NONE
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	// Let's do a blue, since they'll be on green turfs if this shit is ever finished
 	lighting_cutoff_red = 5
 	lighting_cutoff_green = 20

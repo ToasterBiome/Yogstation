@@ -105,7 +105,7 @@
 
 /obj/item/weldingtool/attack(mob/living/M, mob/living/user, params)
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(isOn() && !user.combat_mode && cig && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(isOn() && !(user.istate & ISTATE_HARM) && cig && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		if(cig.lit)
 			to_chat(user, span_notice("The [cig.name] is already lit."))
 			return FALSE
@@ -117,7 +117,7 @@
 			playsound(src, 'sound/items/lighter/light.ogg', 50, 2)
 			return TRUE
 
-	if(!user.combat_mode && ishuman(M))
+	if(!(user.istate & ISTATE_HARM) && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 		if(affecting?.status == BODYPART_ROBOTIC)

@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(rock_paper_scissors_puzzle_answers)
 
 
 /obj/machinery/button_puzzle/attackby(obj/item/W, mob/living/user, params)
-	if(!user.combat_mode && !(W.item_flags & NOBLUDGEON))
+	if(!(user.istate & ISTATE_HARM) && !(W.item_flags & NOBLUDGEON))
 		var/list/modifiers = params2list(params)
 		return attack_hand(user, modifiers)
 	else

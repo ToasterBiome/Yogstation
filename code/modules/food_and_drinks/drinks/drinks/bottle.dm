@@ -97,7 +97,7 @@
 	if(!target)
 		return
 
-	if(!user.combat_mode || !isGlass)
+	if(!(user.istate & ISTATE_HARM) || !isGlass)
 		return ..()
 
 	if(!synth_check(user, SYNTH_ORGANIC_HARM))

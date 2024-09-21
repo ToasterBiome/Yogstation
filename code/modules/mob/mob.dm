@@ -589,11 +589,11 @@
 		return FALSE
 
 	//now we touch the thing we're examining
-	/// temporarily turn off combat mode for reasons
-	var/previous_combat_mode = combat_mode
-	set_combat_mode(FALSE, TRUE)
-	examined_thing.attack_hand(src)
-	set_combat_mode(previous_combat_mode, TRUE)
+	/// our current intent, so we can go back to it after touching
+	var/previous_combat_mode = (istate & ISTATE_HARM)
+	set_combat_mode(FALSE)
+	INVOKE_ASYNC(examined_thing, TYPE_PROC_REF(/atom, attack_hand), src)
+	set_combat_mode(previous_combat_mode)
 
 	return TRUE
 

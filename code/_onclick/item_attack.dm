@@ -1,6 +1,6 @@
 
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	var/is_right_clicking = params2list(params)[RIGHT_CLICK]
+	var/is_right_clicking = (user.istate & ISTATE_SECONDARY)
 
 	if(tool_behaviour && (target.tool_act(user, src, tool_behaviour, params) & TOOL_ACT_MELEE_CHAIN_BLOCKING))
 		return TRUE
@@ -126,7 +126,7 @@
 	var/list/modifiers = params2list(params)
 	for(var/datum/surgery/S in surgeries)
 		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
-			if((S.self_operable || user != src) && !user.combat_mode)
+			if((S.self_operable || user != src) && !(user.istate & ISTATE_HARM))
 				if(S.next_step(user, modifiers))
 					return TRUE
 	var/dist = get_dist(src,user)
@@ -134,7 +134,7 @@
 		return TRUE
 	user.changeNext_move(CLICK_CD_MELEE * I.weapon_stats[SWING_SPEED] * (I.range_cooldown_mod ? (dist > 0 ? min(dist, I.weapon_stats[REACH]) * I.range_cooldown_mod : I.range_cooldown_mod) : 1)) //range increases attack cooldown by swing speed
 	user.weapon_slow(I)
-	if(user.combat_mode && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
+	if((user.istate & ISTATE_HARM) && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
 		var/datum/component/butchering/butchering = I.GetComponent(/datum/component/butchering)
 		if(I.is_sharp() && !butchering)
 			I.AddComponent(/datum/component/butchering, 80 * I.toolspeed) //give sharp objects butchering functionality, for consistency
@@ -175,7 +175,7 @@
 	if(item_flags & NOBLUDGEON)
 		return
 
-	if(tool_behaviour && !user.combat_mode) // checks for combat mode with surgery tool
+	if(tool_behaviour && !(user.istate & ISTATE_HARM)) // checks for combat mode with surgery tool
 		var/list/modifiers = params2list(params)
 		if(attempt_initiate_surgery(src, M, user, modifiers))
 			return TRUE
@@ -208,7 +208,7 @@
 	user.do_attack_animation(M)
 	M.attacked_by(src, user)
 
-	log_combat(user, M, "attacked", src.name, "(COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]) (DAMTYPE: [uppertext(damtype)])")
+	log_combat(user, M, "attacked", src.name, "(COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]) (DAMTYPE: [uppertext(damtype)])")
 	add_fingerprint(user)
 	var/force_multiplier = 1
 	if(ishuman(user))

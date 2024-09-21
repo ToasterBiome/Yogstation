@@ -93,7 +93,7 @@
 		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
 			"[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!",
 			"[user] successfully augments [target]'s [parse_zone(target_zone)]!")
-		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]")
+		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]")
 		var/points = 150 * (target.client ? 1 : 0.1)
 		SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = points))
 		to_chat(user, "<span class = 'notice'>The augment uploads diagnostic data to the research cloud, giving a bonus of research points!</span>")

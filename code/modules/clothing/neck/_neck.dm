@@ -63,7 +63,7 @@
 
 /obj/item/clothing/neck/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
-		if(!user.combat_mode)
+		if(!(user.istate & ISTATE_HARM))
 			var/body_part = parse_zone(user.zone_selected)
 
 			var/heart_strength = span_danger("no")

@@ -30,7 +30,7 @@
 	. += span_notice("Ctrl+Click it to open the radial menu!")
 
 /obj/item/holotool/attack(mob/living/M, mob/living/user, params)
-	if(tool_behaviour == TOOL_WELDER && !user.combat_mode && ishuman(M))
+	if(tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM) && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 		if(affecting?.status == BODYPART_ROBOTIC)

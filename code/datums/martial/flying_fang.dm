@@ -166,7 +166,7 @@
 	return TRUE
 
 /datum/martial_art/flyingfang/proc/on_click(mob/living/carbon/human/lizard, atom/target, params)
-	if(!lizard.combat_mode || !can_use(lizard))
+	if(!lizard.istate & ISTATE_HARM || !can_use(lizard))
 		return NONE
 
 	var/list/modifiers = params2list(params)

@@ -86,7 +86,7 @@
 	power_punch(user, target)
 
 /obj/item/clothing/gloves/powerfist/proc/power_punch(mob/living/user, atom/movable/target)
-	if(!user || !user.combat_mode || (!isliving(target) && !target.uses_integrity) || isitem(target))
+	if(!user || !(user.istate & ISTATE_HARM) || (!isliving(target) && !target.uses_integrity) || isitem(target))
 		return
 	if(!tank)
 		to_chat(user, span_warning("\The [src] can't operate without a source of gas!"))

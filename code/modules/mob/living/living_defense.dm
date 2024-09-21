@@ -96,20 +96,8 @@
 				return 0
 
 /mob/living/proc/set_combat_mode(new_mode, silent = TRUE, forced = TRUE)
-	if(combat_mode == new_mode)
-		return
-	if(!(forced || can_toggle_combat))
-		return
-	. = combat_mode
-	combat_mode = new_mode
-	if(hud_used?.action_intent)
-		hud_used.action_intent.update_appearance()
-	if(silent || !(client?.prefs.read_preference(/datum/preference/toggle/sound_combatmode)))
-		return
-	if(combat_mode)
-		playsound_local(src, 'sound/misc/ui_togglecombat.ogg', 25, FALSE, pressure_affected = FALSE) //Sound from interbay!
-	else
-		playsound_local(src, 'sound/misc/ui_toggleoffcombat.ogg', 25, FALSE, pressure_affected = FALSE) //Slightly modified version of the above
+	if(!client?.imode.set_combat_mode(new_mode, silent))
+		istate = ISTATE_HARM|ISTATE_BLOCKING
 
 /mob/living/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, damage_type = BRUTE)
 	return
@@ -142,7 +130,7 @@
 /mob/living/mech_melee_attack(obj/mecha/M, punch_force, equip_allowed = TRUE)
 	if(M.selected?.melee_override && equip_allowed)
 		M.selected.action(src)
-	else if(M.occupant.combat_mode)
+	else if(M.occupant.istate & ISTATE_HARM)
 		last_damage = "grand blunt trauma"
 		M.do_attack_animation(src)
 		switch(M.damtype)
@@ -165,7 +153,7 @@
 		updatehealth()
 		visible_message(span_danger("[M.name] has hit [src]!"), \
 						span_userdanger("[M.name] has hit [src]!"), null, COMBAT_MESSAGE_RANGE)
-		log_combat(M.occupant, src, "attacked", M, "(COMBAT MODE: [M.occupant.combat_mode ? "ON" : "OFF"]) (DAMTYPE: [uppertext(M.damtype)])")
+		log_combat(M.occupant, src, "attacked", M, "(COMBAT MODE: [M.occupant.istate & ISTATE_HARM ? "ON" : "OFF"]) (DAMTYPE: [uppertext(M.damtype)])")
 	else
 		step_away(src,M)
 		log_combat(M.occupant, src, "pushed", M)
@@ -302,7 +290,7 @@
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return FALSE
 
-	if (M.combat_mode)
+	if (M.istate & ISTATE_HARM)
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, span_notice("You don't want to hurt anyone!"))
 			return FALSE
@@ -324,7 +312,7 @@
 	return FALSE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L, modifiers)
-	if(L.combat_mode)
+	if(L.istate & ISTATE_HARM)
 		if(HAS_TRAIT(L, TRAIT_PACIFISM))
 			to_chat(L, span_notice("You don't want to hurt anyone!"))
 			return
@@ -349,7 +337,7 @@
 		last_damage = "minor blunt trauma"
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		return TRUE
-	if(M.combat_mode)
+	if(M.istate & ISTATE_HARM)
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, span_notice("You don't want to hurt anyone!"))
 			return FALSE

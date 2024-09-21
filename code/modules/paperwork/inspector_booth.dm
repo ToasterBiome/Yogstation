@@ -92,7 +92,7 @@
 	if (default_change_direction_wrench(user, I) || default_deconstruction_crowbar(I))
 		return
 
-	if (user.combat_mode)
+	if ((user.istate & ISTATE_HARM))
 		return ..()
 
 	// For adding stamp upgrades to component_parts

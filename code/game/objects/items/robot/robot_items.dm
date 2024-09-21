@@ -51,7 +51,7 @@
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
-	log_combat(user, M, "stunned", src, "(COMBAT MODE: [user.combat_mode ? "ON" : "OFF"])")
+	log_combat(user, M, "stunned", src, "(COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"])")
 
 /obj/item/borg/cyborghug
 	name = "hugging module"

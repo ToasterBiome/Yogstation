@@ -1,7 +1,7 @@
 
 
 /mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		..(user, 1)
 		adjustBruteLoss(15)
 		var/hitverb = "punched"
@@ -36,7 +36,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message(span_userdanger("[M] has attempted to disarm [src]!"),\
 					span_userdanger("[M] has attempted to disarm [src]!"), null, COMBAT_MESSAGE_RANGE)
-	else if(M.combat_mode)
+	else if(M.istate & ISTATE_HARM)
 		var/damage = rand(1, 9)
 		if (prob(90))
 			playsound(loc, "punch", 25, 1, -1)

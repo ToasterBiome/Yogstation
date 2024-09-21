@@ -200,7 +200,7 @@
 	if(welded)
 		to_chat(user, span_warning("[src] refuses to budge!"))
 		return
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 	else
 		open()

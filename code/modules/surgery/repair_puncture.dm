@@ -57,7 +57,7 @@
 	display_results(user, target, span_notice("You successfully realign some of the blood vessels in [target]'s [parse_zone(target_zone)], and prepare to cauterize them shut."),
 		span_notice("[user] successfully realigns some of the blood vessels in [target]'s [parse_zone(target_zone)] with [tool]!"),
 		span_notice("[user] successfully realigns some of the blood vessels in [target]'s [parse_zone(target_zone)]!"))
-	log_combat(user, target, "excised infected flesh in", addition="COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]")
+	log_combat(user, target, "excised infected flesh in", addition="COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]")
 	surgery.operated_bodypart.receive_damage(brute=3, wound_bonus=CANT_WOUND)
 	pierce_wound.blood_flow -= 0.25
 	return ..()
@@ -101,7 +101,7 @@
 	display_results(user, target, span_notice("You successfully meld some of the split blood vessels in [target]'s [parse_zone(target_zone)] with [tool]."),
 		span_notice("[user] successfully melds some of the split blood vessels in [target]'s [parse_zone(target_zone)] with [tool]!"),
 		span_notice("[user] successfully melds some of the split blood vessels in [target]'s [parse_zone(target_zone)]!"))
-	log_combat(user, target, "dressed burns in", addition="COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]")
+	log_combat(user, target, "dressed burns in", addition="COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]")
 	pierce_wound.blood_flow -= 0.5
 	if(pierce_wound.blood_flow > 0)
 		surgery.status = REALIGN_INNARDS

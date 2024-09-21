@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/cheese/attack_hand(mob/living/L)
 	..()
-	if(L.combat_mode && L.reagents && !stat)
+	if(L.istate & ISTATE_HARM && L.reagents && !stat)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
 		L.adjustBruteLoss(-0.1, 0)

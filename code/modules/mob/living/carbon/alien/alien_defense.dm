@@ -20,7 +20,7 @@ In all, this is a lot like the monkey code. /N
 
 	if(modifiers && modifiers[CTRL_CLICK])
 		grabbedby(M)
-	else if(!M.combat_mode)
+	else if(!M.istate & ISTATE_HARM)
 		set_resting(FALSE)
 		AdjustStun(-60)
 		AdjustKnockdown(-60)
@@ -55,7 +55,7 @@ In all, this is a lot like the monkey code. /N
 	if(modifiers && modifiers[CTRL_CLICK])
 		grabbedby(M)
 		return FALSE
-	if(M.combat_mode)
+	if(M.istate & ISTATE_HARM)
 		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		return TRUE
 	help_shake_act(M)

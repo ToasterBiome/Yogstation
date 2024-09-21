@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 				conveytime = 1
 				to_chat(user, span_notice("You set [src]'s speed back to default."))
 
-	else if(!user.combat_mode)
+	else if(!(user.istate & ISTATE_HARM))
 		user.transferItemToLoc(I, drop_location())
 	else
 		return ..()

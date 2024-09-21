@@ -163,7 +163,7 @@
 	if(T)
 		if(istype(A, /mob/living/carbon))
 			var/mob/living/carbon/C = A
-			if(!C.combat_mode)
+			if(!C.istate & ISTATE_HARM)
 				T.Click(A)
 	. = ..()
 

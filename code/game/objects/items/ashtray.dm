@@ -13,7 +13,7 @@
 		. += image('icons/obj/objects.dmi', "ashtray_half")
 
 /obj/item/ashtray/attackby(obj/item/W, mob/living/user)
-	if (user.combat_mode)
+	if ((user.istate & ISTATE_HARM))
 		..()
 		return
 

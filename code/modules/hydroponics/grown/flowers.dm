@@ -228,7 +228,7 @@
 /obj/item/grown/novaflower/attack(mob/living/carbon/M, mob/living/user)
 	if(..())
 		return
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		return
 	if(isliving(M))
 		to_chat(M, span_danger("You are lit on fire from the intense heat of the [name]!"))

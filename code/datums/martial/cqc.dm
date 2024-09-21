@@ -30,7 +30,7 @@
 	var/chokehold_active = FALSE
 
 /datum/martial_art/cqc/can_use(mob/living/carbon/human/H)
-	if(!H.combat_mode)
+	if(!H.istate & ISTATE_HARM)
 		return FALSE
 	return ..()
 

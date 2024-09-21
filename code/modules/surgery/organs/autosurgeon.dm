@@ -45,7 +45,7 @@
 //---------------------------------Adding organs----------------------------------//
 ////////////////////////////////////////////////////////////////////////////////////
 /obj/item/autosurgeon/attackby(obj/item/I, mob/user, params) //putting new things in
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		insert_organ(I, user)
 	return ..()
 		

@@ -39,7 +39,7 @@
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
 
-	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+	if(I.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM))
 		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return TRUE

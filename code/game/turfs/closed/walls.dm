@@ -219,7 +219,7 @@
 	return ..() || (attacking_item.attack_atom(src, user, params))
 
 /turf/closed/wall/proc/try_clean(obj/item/W, mob/living/user, turf/T, modifiers)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)

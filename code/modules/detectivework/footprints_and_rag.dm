@@ -26,7 +26,7 @@
 		var/mob/living/carbon/C = target
 		var/reagentlist = pretty_string_from_reagent_list(reagents)
 		var/log_object = "containing [reagentlist]"
-		if(user.combat_mode && !C.is_mouth_covered())
+		if((user.istate & ISTATE_HARM) && !C.is_mouth_covered())
 			reagents.reaction(C, INGEST)
 			reagents.trans_to(C, reagents.total_volume, transfered_by = user)
 			C.visible_message(span_danger("[user] has smothered \the [C] with \the [src]!"), span_userdanger("[user] has smothered you with \the [src]!"), span_italics("You hear some struggling and muffled cries of surprise."))

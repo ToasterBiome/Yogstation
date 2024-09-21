@@ -73,11 +73,11 @@
 			continue
 		if(!S.self_operable && user == src)
 			continue
-		if(user.combat_mode)
+		if((user.istate & ISTATE_HARM))
 			continue
 		return ..()
 
-	if(!all_wounds || user.combat_mode || user == src)
+	if(!all_wounds || (user.istate & ISTATE_HARM) || user == src)
 		return ..()
 
 	for(var/i in shuffle(all_wounds))

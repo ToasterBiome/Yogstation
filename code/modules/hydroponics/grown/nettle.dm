@@ -108,7 +108,7 @@
 /obj/item/reagent_containers/food/snacks/grown/nettle/death/attack(mob/living/carbon/M, mob/living/user)
 	if(..())
 		return
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		return
 	if(isliving(M))
 		to_chat(M, span_danger("You are blinded by the powerful acid of [src]!"))

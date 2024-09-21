@@ -34,7 +34,7 @@
 		cell.emp_act(severity)
 
 /obj/item/inducer/attack_atom(atom/target, mob/living/carbon/user)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 
 	if(cantbeused(user))
@@ -164,7 +164,7 @@
 
 
 /obj/item/inducer/attack(mob/M, mob/living/user)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 
 	if(cantbeused(user))

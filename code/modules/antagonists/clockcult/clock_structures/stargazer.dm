@@ -96,7 +96,7 @@
 		sg_light.close()
 
 /obj/structure/destructible/clockwork/stargazer/attackby(obj/item/I, mob/living/user, params)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 	if(!anchored)
 		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")

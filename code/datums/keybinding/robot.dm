@@ -50,7 +50,7 @@
 
 /datum/keybinding/robot/intent_cycle/down(client/user)
 	var/mob/living/silicon/robot/R = user.mob
-	R.set_combat_mode(!R.combat_mode)
+	R.set_combat_mode(!R.istate & ISTATE_HARM)
 	return TRUE
 
 

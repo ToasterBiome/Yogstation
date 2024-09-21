@@ -262,7 +262,7 @@
 	if(W.is_hot())
 		StartBurning()
 	if(grill)
-		if(!user.combat_mode && !(W.item_flags & ABSTRACT))
+		if(!(user.istate & ISTATE_HARM) && !(W.item_flags & ABSTRACT))
 			if(user.temporarilyRemoveItemFromInventory(W))
 				W.forceMove(get_turf(src))
 				var/list/click_params = params2list(params)

@@ -14,7 +14,7 @@
 
 /obj/vehicle/ridden/secway/welder_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return FALSE
 
 	if(atom_integrity == max_integrity)

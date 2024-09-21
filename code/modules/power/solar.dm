@@ -469,7 +469,7 @@
 				A.icon_state = "4"
 				A.anchored = TRUE
 				qdel(src)
-	else if(!user.combat_mode && !(I.item_flags & NOBLUDGEON))
+	else if(!(user.istate & ISTATE_HARM) && !(I.item_flags & NOBLUDGEON))
 		attack_hand(user)
 	else
 		return ..()

@@ -12,7 +12,7 @@
 	icon = 'icons/mob/nonhuman-player/cult.dmi'
 	speed = 0
 	spacewalk = TRUE
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/weapons/punch1.ogg'

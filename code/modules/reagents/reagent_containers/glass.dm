@@ -21,7 +21,7 @@
 		return
 
 	if(istype(M))
-		if(user.combat_mode)
+		if((user.istate & ISTATE_HARM))
 			var/R
 			M.visible_message(span_danger("[user] splashes the contents of [src] onto [M]!"), \
 							span_userdanger("[user] splashes the contents of [src] onto [M]!"))
@@ -82,7 +82,7 @@
 		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 
 	else if(is_spillable() && reagents.total_volume)
-		if(user.combat_mode)
+		if((user.istate & ISTATE_HARM))
 			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
 								span_notice("You splash the contents of [src] onto [target]."))
 			reagents.reaction(target, TOUCH)

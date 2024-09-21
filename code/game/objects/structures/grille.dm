@@ -121,7 +121,7 @@
 	return 60
 
 /obj/structure/grille/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		if(!shock(user, 70))
 			..(user, 1)
 		return TRUE

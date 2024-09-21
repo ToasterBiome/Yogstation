@@ -437,7 +437,7 @@
 		to_chat(user, span_warning("You need to target your patient's chest with [src]!"))
 		return
 
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		do_harm(H, user)
 		return
 

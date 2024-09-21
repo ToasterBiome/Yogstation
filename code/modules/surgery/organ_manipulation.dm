@@ -166,7 +166,7 @@
 		if(H && H.victim == target)
 			user.visible_message("[user] successfully extracts [H] from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You successfully extract [H] from [target]'s [parse_zone(target_zone)].</span>")
-			log_combat(user, target, "surgically removed [H] from", addition="COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]")
+			log_combat(user, target, "surgically removed [H] from", addition="COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]")
 			H.leave_victim()
 			return FALSE
 		if(I && I.owner == target)
@@ -177,7 +177,7 @@
 			display_results(user, target, span_notice("You successfully extract [I] from [target]'s [parse_zone(target_zone)]."),
 				"[user] successfully extracts [I] from [target]'s [parse_zone(target_zone)]!",
 				"[user] successfully extracts something from [target]'s [parse_zone(target_zone)]!")
-			log_combat(user, target, "surgically removed [I.name] from", addition="COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]")
+			log_combat(user, target, "surgically removed [I.name] from", addition="COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]")
 			I.Remove(target)
 			I.forceMove(get_turf(target))
 		else

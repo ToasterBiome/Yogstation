@@ -20,7 +20,6 @@
 	melee_damage_upper = 0
 	attacktext = "barrels into"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	combat_mode = FALSE
 	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
 	deathmessage = "spits up the contents of its stomach before dying!"

@@ -185,7 +185,7 @@
 		return
 	if(injectee.can_inject(user, 1, user.zone_selected,bypass_protection))
 		// Prevents overdosing unless combat mode is on.
-		if(!user.combat_mode)
+		if(!(user.istate & ISTATE_HARM))
 			for(var/datum/reagent/reagent as anything in stored_reagents.reagent_list)
 				if(reagent.type != selected_reagent.type)
 					continue

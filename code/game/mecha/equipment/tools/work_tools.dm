@@ -98,7 +98,7 @@
 		var/mob/living/M = target
 		if(M.stat == DEAD)
 			return
-		if(chassis.occupant.combat_mode)
+		if(chassis.occupant.istate & ISTATE_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
 				return
@@ -107,7 +107,7 @@
 			target.visible_message(span_danger("[chassis] squeezes [target]."), \
 								span_userdanger("[chassis] squeezes [target]."),\
 								span_italics("You hear something crack."))
-			log_combat(chassis.occupant, M, "attacked", "[name]", "(COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]) (DAMTYE: [uppertext(damtype)])")
+			log_combat(chassis.occupant, M, "attacked", "[name]", "(COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]) (DAMTYE: [uppertext(damtype)])")
 		else
 			step_away(M,chassis)
 			occupant_message("You push [target] out of the way.")
@@ -177,11 +177,11 @@
 					playsound(src, get_dismember_sound(), 80, TRUE)
 					target.visible_message(span_danger("[chassis] rips [target]'s arms off."), \
 								   span_userdanger("[chassis] rips [target]'s arms off."))
-					log_combat(chassis.occupant, M, "dismembered of[limbs_gone],", "[name]", "(COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]) (DAMTYE: [uppertext(damtype)])")
+					log_combat(chassis.occupant, M, "dismembered of[limbs_gone],", "[name]", "(COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]) (DAMTYE: [uppertext(damtype)])")
 			else
 				target.visible_message(span_danger("[chassis] rips [target]'s arms off."), \
 								   span_userdanger("[chassis] rips [target]'s arms off."))
-		else if(chassis.occupant.combat_mode)
+		else if(chassis.occupant.istate & ISTATE_HARM)
 			if(real_clamp)
 				M.take_overall_damage(dam_force)
 				if(!M)
@@ -190,7 +190,7 @@
 				M.updatehealth()
 				target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."), \
 									span_userdanger("[chassis] destroys [target] in an unholy fury."))
-				log_combat(chassis.occupant, M, "attacked", "[name]", "(COMBAT MODE: [user.combat_mode ? "ON" : "OFF"]) (DAMTYE: [uppertext(damtype)])")
+				log_combat(chassis.occupant, M, "attacked", "[name]", "(COMBAT MODE: [(user.istate & ISTATE_HARM) ? "ON" : "OFF"]) (DAMTYE: [uppertext(damtype)])")
 			else
 				target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."), \
 									span_userdanger("[chassis] destroys [target] in an unholy fury."))

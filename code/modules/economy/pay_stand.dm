@@ -23,7 +23,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.combat_mode && user.stat == CONSCIOUS)
+	if(!(user.istate & ISTATE_HARM) && user.stat == CONSCIOUS)
 		ui_interact(user)
 		return .
 	return
@@ -109,7 +109,7 @@
 	if(.)
 		return FALSE
 	var/mob/living/interactor = user
-	if(isliving(interactor) && interactor.combat_mode)
+	if(isliving(interactor) && interactor.istate & ISTATE_HARM)
 		return FALSE
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

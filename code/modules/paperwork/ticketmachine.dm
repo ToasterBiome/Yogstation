@@ -99,7 +99,7 @@
 		return
 
 /obj/machinery/ticket_machine/attackby(obj/item/O, mob/living/user, params)
-	if(user.combat_mode) //so we can hit the machine
+	if((user.istate & ISTATE_HARM)) //so we can hit the machine
 		return ..()
 
 	if(default_deconstruction_screwdriver(user, "ticketmachine_panel", "ticketmachine", O))

@@ -1,6 +1,6 @@
 //Healer
 /mob/living/simple_animal/hostile/guardian/healer
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	friendly = "heals"
 	speed = 0
 	damage_coeff = list(BRUTE = 0.7, BURN = 0.7, TOX = 0.7, CLONE = 0.7, STAMINA = 0, OXY = 0.7)

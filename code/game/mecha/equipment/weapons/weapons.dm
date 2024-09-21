@@ -196,7 +196,7 @@
 		return TRUE
 	if(target.attackby(src, chassis.occupant, params))
 		return TRUE
-	if(user.combat_mode) // hurt things
+	if((user.istate & ISTATE_HARM)) // hurt things
 		chassis.default_melee_attack(target)
 	return TRUE
 

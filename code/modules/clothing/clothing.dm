@@ -86,7 +86,7 @@
 	foodtype = CLOTH
 
 /obj/item/clothing/attack(mob/M, mob/living/user, params)
-	if(!user.combat_mode && ismoth(M))
+	if(!(user.istate & ISTATE_HARM) && ismoth(M))
 		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
 		clothing_as_food.name = name
 		if(clothing_as_food.attack(M, user, params))

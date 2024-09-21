@@ -55,7 +55,7 @@
 	response_disarm = "gently moves aside"
 	response_harm   = "swats"
 	stop_automated_movement = 1
-	combat_mode = TRUE //parrots now start "aggressive" since only player parrots will nuzzle.
+	istate = ISTATE_HARM //parrots now start "aggressive" since only player parrots will nuzzle.
 	attacktext = "chomps"
 	friendly = "grooms"
 	mob_size = MOB_SIZE_SMALL
@@ -143,7 +143,7 @@
 	. = ..()
 	. += ""
 	. += "Held Item: [held_item]"
-	. += "Combat Mode: [combat_mode ? "On" : "Off"]"
+	. += "Interaction mode: [istate]"
 
 /mob/living/simple_animal/parrot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	..()
 	if(client)
 		return
-	if(!stat && M.combat_mode)
+	if(!stat && M.istate & ISTATE_HARM)
 
 		icon_state = icon_living //It is going to be flying regardless of whether it flees or attacks
 
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		else
 			parrot_state |= PARROT_FLEE		//Otherwise, fly like a bat out of hell!
 			drop_held_item(0)
-	if(stat != DEAD && !M.combat_mode)
+	if(stat != DEAD && !M.istate & ISTATE_HARM)
 		handle_automated_speech(1) //assured speak/emote
 	return
 
@@ -853,9 +853,9 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(stat || !client)
 		return
 
-	set_combat_mode(!combat_mode)
-	melee_damage_upper = combat_mode ? parrot_damage_upper : 0
-	to_chat(src, "Combat mode [combat_mode ? "enabled" : "disabled"].")
+	set_combat_mode(!(istate & ISTATE_HARM))
+	melee_damage_upper = (istate & ISTATE_HARM) ? parrot_damage_upper : 0
+	to_chat(src, "Combat mode [(istate & ISTATE_HARM) ? "enabled" : "disabled"].")
 	return
 
 /*

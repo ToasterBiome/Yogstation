@@ -11,7 +11,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/attackby(obj/item/W, mob/living/user, params)
 	if(cover && !welded)
-		if(istype(W) && W.w_class == WEIGHT_CLASS_TINY && !user.combat_mode)
+		if(istype(W) && W.w_class == WEIGHT_CLASS_TINY && !(user.istate & ISTATE_HARM))
 			if(contents.len>=max_n_of_items || !user.transferItemToLoc(W, src))
 				to_chat(user, span_warning("You can't seem to fit [W]."))
 				return

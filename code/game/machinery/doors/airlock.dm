@@ -1096,7 +1096,7 @@
 	else if(istype(C, /obj/item/brace)) //yogs
 		apply_brace(C, user) //yogs
 	else if(istype(C, /obj/item/umbral_tendrils))
-		if(!user.combat_mode && !hasPower())
+		if(!(user.istate & ISTATE_HARM) && !hasPower())
 			if(!density)
 				return
 			if(locked || welded)
@@ -1107,7 +1107,7 @@
 		var/list/modifiers = params2list(params)
 		if(!isdarkspawn(user))
 			return ..()
-		else if((!user.combat_mode || (modifiers && modifiers[RIGHT_CLICK])) && density)
+		else if((!(user.istate & ISTATE_HARM) || (modifiers && modifiers[RIGHT_CLICK])) && density)
 			// we dont want Duality double-hitting the airlock when we're trying to pry it open
 			if(user.get_active_held_item() != C)
 				return
@@ -1159,7 +1159,7 @@
 
 /obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/living/user, list/modifiers)
 	if(!operating && density)
-		if(user.combat_mode || (modifiers && modifiers[RIGHT_CLICK]))
+		if((user.istate & ISTATE_HARM) || (modifiers && modifiers[RIGHT_CLICK]))
 			if(!W.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \

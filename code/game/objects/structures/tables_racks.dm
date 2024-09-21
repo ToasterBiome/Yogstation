@@ -111,7 +111,7 @@
 			if(pushed_mob.buckled)
 				to_chat(user, span_warning("[pushed_mob] is buckled to [pushed_mob.buckled]!"))
 				return
-			if(user.combat_mode)
+			if((user.istate & ISTATE_HARM))
 				switch(user.grab_state)
 					if(GRAB_PASSIVE)
 						to_chat(user, span_warning("You need a better grip to do that!"))
@@ -200,7 +200,7 @@
 			return
 		// If the tray IS empty, continue on (tray will be placed on the table like other items)
 
-	if(!user.combat_mode && !HAS_TRAIT(I, TRAIT_NODROP) && !(I.item_flags & ABSTRACT)) // if you can't drop it, you can't place it on the table
+	if(!(user.istate & ISTATE_HARM) && !HAS_TRAIT(I, TRAIT_NODROP) && !(I.item_flags & ABSTRACT)) // if you can't drop it, you can't place it on the table
 		if(user.transferItemToLoc(I, drop_location()))
 			var/list/click_params = params2list(params)
 			//Center the icon where the user clicked.
@@ -210,7 +210,7 @@
 			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			return 1
-	else if(!user.combat_mode) // can't drop the item but not in combat mode, try deconstructing instead
+	else if(!(user.istate & ISTATE_HARM)) // can't drop the item but not in combat mode, try deconstructing instead
 		return attackby_secondary(I, user, params)
 	else
 		return ..()
@@ -611,7 +611,7 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/living/user, params)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 	if(user.transferItemToLoc(W, drop_location()))
 		return TRUE

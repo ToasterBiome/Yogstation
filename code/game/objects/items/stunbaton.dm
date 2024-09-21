@@ -259,7 +259,7 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		var/datum/mind/M = H.mind
-		if(M && (M.assigned_role == "Assistant" || M.assigned_role == "Clown") && user.combat_mode)
+		if(M && (M.assigned_role == "Assistant" || M.assigned_role == "Clown") && (user.istate & ISTATE_HARM))
 			var/amount_given = 1
 			if(M.assigned_role == "Clown")
 				amount_given = 5

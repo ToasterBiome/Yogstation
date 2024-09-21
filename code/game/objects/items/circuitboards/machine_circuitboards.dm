@@ -500,7 +500,7 @@
 
 /obj/item/circuitboard/machine/paystand/attackby(obj/item/held_item, mob/living/user, params)
 	if(held_item.tool_behaviour)
-		if(held_item.tool_behaviour == TOOL_SCREWDRIVER && !user.combat_mode)
+		if(held_item.tool_behaviour == TOOL_SCREWDRIVER && !(user.istate & ISTATE_HARM))
 			if(cash_register)
 				to_chat(user,span_info("You change the holo-emitter selector to it's default setting."))
 				build_path = /obj/machinery/paystand

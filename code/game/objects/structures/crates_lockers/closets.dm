@@ -324,7 +324,7 @@ GLOBAL_LIST_EMPTY(lockers)
 /obj/structure/closet/attackby(obj/item/attacking_item, mob/user, params)
 	if(user in src)
 		return
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 	if(attacking_item.GetID()) //if you're hitting with an id item, toggle the lock
 		togglelock(user)
@@ -335,7 +335,7 @@ GLOBAL_LIST_EMPTY(lockers)
 		return TRUE
 
 /obj/structure/closet/welder_act(mob/living/user, obj/item/tool, modifiers)
-	if(user.combat_mode && !(modifiers && modifiers[RIGHT_CLICK]))
+	if((user.istate & ISTATE_HARM) && !(modifiers && modifiers[RIGHT_CLICK]))
 		return FALSE
 	if(!tool.tool_start_check(user, amount=0))
 		return FALSE
@@ -367,7 +367,7 @@ GLOBAL_LIST_EMPTY(lockers)
 	return FALSE
 
 /obj/structure/closet/wirecutter_act(mob/living/user, obj/item/tool, modifiers)
-	if(user.combat_mode && !(modifiers && modifiers[RIGHT_CLICK]))
+	if((user.istate & ISTATE_HARM) && !(modifiers && modifiers[RIGHT_CLICK]))
 		return FALSE
 	if(tool.tool_behaviour != cutting_tool)
 		return FALSE
@@ -377,7 +377,7 @@ GLOBAL_LIST_EMPTY(lockers)
 	return TRUE
 
 /obj/structure/closet/wrench_act(mob/living/user, obj/item/tool, modifiers)
-	if(user.combat_mode && !(modifiers && modifiers[RIGHT_CLICK]))
+	if((user.istate & ISTATE_HARM) && !(modifiers && modifiers[RIGHT_CLICK]))
 		return FALSE
 	if(!anchorable)
 		return FALSE

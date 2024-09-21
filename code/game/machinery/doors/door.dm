@@ -289,7 +289,7 @@
 	add_fingerprint(user)
 
 	var/list/modifiers = params2list(params)
-	if((!user.combat_mode || (modifiers && modifiers[RIGHT_CLICK])) && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/fireaxe))) // right click always opens
+	if((!(user.istate & ISTATE_HARM) || (modifiers && modifiers[RIGHT_CLICK])) && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/fireaxe))) // right click always opens
 		try_to_crowbar(I, user)
 		return TRUE
 	else if(istype(I, /obj/item/zombie_hand/gamemode))
@@ -298,7 +298,7 @@
 	else if(I.tool_behaviour == TOOL_WELDER)
 		try_to_weld(I, user, modifiers)
 		return TRUE
-	else if(!(I.item_flags & NOBLUDGEON) && !user.combat_mode)
+	else if(!(I.item_flags & NOBLUDGEON) && !(user.istate & ISTATE_HARM))
 		try_to_activate_door(user)
 		return TRUE
 	return ..()

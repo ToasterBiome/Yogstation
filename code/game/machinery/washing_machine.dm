@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		update_appearance(UPDATE_ICON)
 		return
 
-	else if(!user.combat_mode)
+	else if(!(user.istate & ISTATE_HARM))
 
 		if (!state_open)
 			to_chat(user, span_warning("Open the door first!"))

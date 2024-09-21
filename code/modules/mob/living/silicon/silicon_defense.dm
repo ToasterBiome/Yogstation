@@ -42,11 +42,11 @@
 	return attack_hand(user)
 
 /mob/living/silicon/attack_larva(mob/living/carbon/alien/larva/L, modifiers)
-	if(!L.combat_mode)
+	if(!L.istate & ISTATE_HARM)
 		visible_message("[L.name] rubs its head against [src].")
 
 /mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		..(user, 1)
 		adjustBruteLoss(run_armor(rand(10, 15), BRUTE, MELEE))
 		playsound(loc, "punch", 25, 1, -1)
@@ -74,7 +74,7 @@
 		M.visible_message(span_danger("[M.name] shoves [src], pushing [p_them()]!"),
 			span_danger("You shove [src], pushing [p_them()]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, list(src))
 		to_chat(src, span_userdanger("You're pushed by [name]!"))
-	else if(M.combat_mode)
+	else if(M.istate & ISTATE_HARM)
 		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		playsound(src.loc, 'sound/effects/bang.ogg', 10, 1)
 		visible_message(span_danger("[M] punches [src], but doesn't leave a dent."), \
@@ -90,7 +90,7 @@
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "pet_borg", /datum/mood_event/pet_borg)
 
 /mob/living/silicon/attack_drone(mob/living/simple_animal/drone/M, modifiers)
-	if(M.combat_mode)
+	if(M.istate & ISTATE_HARM)
 		return
 	return ..()
 

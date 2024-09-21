@@ -213,7 +213,7 @@
 	return circs.len
 
 /obj/machinery/power/generator/wrench_act(mob/living/user, obj/item/I)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return
 
 	if(!panel_open) //connect/disconnect circulators
@@ -257,7 +257,7 @@
 /obj/machinery/power/generator/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return
 
 	if(hot_circ && cold_circ)
@@ -270,7 +270,7 @@
 	return TRUE
 
 /obj/machinery/power/generator/crowbar_act(mob/living/user, obj/item/I)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return
 
 	if(anchored)

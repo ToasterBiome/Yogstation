@@ -321,7 +321,7 @@
 					indicate_full()
 				return TRUE
 
-		if(!user.combat_mode)
+		if(!(user.istate & ISTATE_HARM))
 			to_chat(user, span_warning("\The [src] smartly refuses [O]."))
 			updateUsrDialog()
 			return FALSE

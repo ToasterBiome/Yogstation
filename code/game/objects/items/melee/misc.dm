@@ -324,7 +324,7 @@
 
 /obj/item/melee/classic_baton/attack(mob/living/target, mob/living/user, params)
 	var/list/modifiers = params2list(params)
-	if(!on || (user.combat_mode && modifiers && modifiers[RIGHT_CLICK])) // right click to harm, so you can keep combat mode on to prevent walking through people
+	if(!on || ((user.istate & ISTATE_HARM) && modifiers && modifiers[RIGHT_CLICK])) // right click to harm, so you can keep combat mode on to prevent walking through people
 		return ..()
 	if(!isliving(target))
 		return ..()

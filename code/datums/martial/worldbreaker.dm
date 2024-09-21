@@ -62,7 +62,7 @@
 		if(thing in H.get_all_contents())
 			return NONE
 
-	if(!H.combat_mode)
+	if(!H.istate & ISTATE_HARM)
 		return NONE
 
 	if(H.in_throw_mode) //so they can throw people they've grabbed using regular grabs

@@ -80,7 +80,7 @@
 		return 0
 	if (targloc == curloc)
 		return 0
-	if(target == targloc && chassis.occupant.combat_mode && cleave)	//If we are targetting a location, not an object or mob, and we're not in a passive stance
+	if(target == targloc && chassis.occupant.istate & ISTATE_HARM && cleave)	//If we are targetting a location, not an object or mob, and we're not in a passive stance
 		var/attack_dir = NONE
 		if(chassis.omnidirectional_attacks)
 			if(user.client) //try to get the precise angle to the user's mouse rather than just the tile clicked on

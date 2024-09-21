@@ -22,7 +22,6 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "squishes"
 	friendly = "pinches"
-	combat_mode = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = UNCONSCIOUS

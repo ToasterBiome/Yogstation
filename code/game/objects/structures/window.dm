@@ -180,7 +180,7 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		user.visible_message(span_notice("[user] knocks on [src]."), \
 			span_notice("You knock on [src]."))
 		playsound(src, knock_sound, 50, TRUE)
@@ -203,7 +203,7 @@
 
 	add_fingerprint(user)
 
-	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+	if(I.tool_behaviour == TOOL_WELDER && !(user.istate & ISTATE_HARM))
 		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return
@@ -941,7 +941,7 @@
 	if(.)
 		return
 	add_fingerprint(user)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		take_damage(4,BRUTE,MELEE, 0)
 		if(!QDELETED(src))
 			user.visible_message(span_danger("[user] tears a hole in [src]."))
@@ -964,7 +964,7 @@
 	if(W.is_hot())
 		fire_act(W.is_hot())
 		return
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		return ..()
 	if(istype(W, /obj/item/paper) && atom_integrity < max_integrity)
 		user.visible_message("[user] starts to patch the holes in \the [src].")

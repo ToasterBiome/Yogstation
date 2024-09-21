@@ -21,13 +21,13 @@
 	. = ..()
 	if(.)
 		return
-	if(swirlie && user.combat_mode)
+	if(swirlie && (user.istate & ISTATE_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
 		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto your head!"), span_italics("You hear reverberating porcelain."))
 		swirlie.adjustBruteLoss(5)
 
-	else if(user.pulling && isliving(user.pulling) && user.combat_mode)
+	else if(user.pulling && isliving(user.pulling) && (user.istate & ISTATE_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/mob/living/GM = user.pulling
 		if(user.grab_state >= GRAB_AGGRESSIVE)
@@ -83,7 +83,7 @@
 			cistern = !cistern
 			update_appearance(UPDATE_ICON)
 
-	else if(cistern && !user.combat_mode)
+	else if(cistern && !(user.istate & ISTATE_HARM))
 		if(I.w_class > WEIGHT_CLASS_NORMAL)
 			to_chat(user, span_warning("[I] does not fit!"))
 			return
@@ -96,7 +96,7 @@
 		w_items += I.w_class
 		to_chat(user, span_notice("You carefully place [I] into the cistern."))
 
-	else if(istype(I, /obj/item/reagent_containers) && !user.combat_mode)
+	else if(istype(I, /obj/item/reagent_containers) && !(user.istate & ISTATE_HARM))
 		if (!open)
 			return
 		var/obj/item/reagent_containers/RG = I
@@ -320,7 +320,7 @@
 	if(O.item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
 
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		to_chat(user, span_notice("You start washing [O]..."))
 		busy = TRUE
 		if(!do_after(user, 4 SECONDS, src))

@@ -475,7 +475,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 				else
 					to_chat(user, span_notice("There's nothing to restock!"))
 			return
-	if(!user.combat_mode && compartmentLoadAccessCheck(user))
+	if(!(user.istate & ISTATE_HARM) && compartmentLoadAccessCheck(user))
 		if(canLoadItem(I))
 			loadingAttempt(I,user)
 			updateUsrDialog() //can't put this on the proc above because we spam it below

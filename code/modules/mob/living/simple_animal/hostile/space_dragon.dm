@@ -26,7 +26,7 @@
 	gender = NEUTER
 	maxHealth = 320
 	health = 320
-	combat_mode = TRUE
+	istate = ISTATE_HARM
 	speed = 0
 	attacktext = "chomps"
 	attack_sound = 'sound/magic/demon_attack1.ogg'

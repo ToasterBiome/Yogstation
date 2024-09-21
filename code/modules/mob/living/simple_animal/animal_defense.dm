@@ -17,7 +17,7 @@
 			span_danger("You shove [src], pushing [p_them()]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, list(src))
 		to_chat(src, span_userdanger("You're pushed by [name]!"))
 		return TRUE
-	else if(M.combat_mode)
+	else if(M.istate & ISTATE_HARM)
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, span_notice("You don't want to hurt [src]!"))
 			return
@@ -39,7 +39,7 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)	
 
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, span_notice("You don't want to hurt [src]!"))
 			return FALSE
@@ -56,7 +56,7 @@
 			var/damage = rand(1, 3)
 			attack_threshold_check(damage)
 			return 1
-	if (!M.combat_mode)
+	if (!M.istate & ISTATE_HARM)
 		if (health > 0)
 			visible_message(span_notice("[M.name] [response_help] [src]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -100,7 +100,7 @@
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
-	if(M.combat_mode) //No kicking dogs even as a rogue drone. Use a weapon.
+	if(M.istate & ISTATE_HARM) //No kicking dogs even as a rogue drone. Use a weapon.
 		return
 	return ..()
 

@@ -345,7 +345,7 @@
 		attacked += 10
 
 /mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
+	if((user.istate & ISTATE_HARM))
 		discipline_slime(user)
 		return ..()
 
@@ -375,7 +375,7 @@
 				discipline_slime(M)
 	else
 		if(stat == DEAD && surgeries.len)
-			if(!M.combat_mode)
+			if(!M.istate & ISTATE_HARM)
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, modifiers))
 						return 1
@@ -389,7 +389,7 @@
 
 
 /mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, params)
-	if(stat == DEAD && surgeries.len && !user.combat_mode)
+	if(stat == DEAD && surgeries.len && !(user.istate & ISTATE_HARM))
 		var/list/modifiers = params2list(params)
 		for(var/datum/surgery/S in surgeries)
 			if(S.next_step(user, modifiers))

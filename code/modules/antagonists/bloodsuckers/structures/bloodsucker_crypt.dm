@@ -761,7 +761,7 @@
 		return FALSE
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
 	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		if(istype(bloodsuckerdatum))
 			unbuckle_mob(buckled_carbons)
 			return FALSE
@@ -1241,7 +1241,7 @@
 	// Checks: They're Buckled & Alive.
 	if(IS_BLOODSUCKER(user) && has_buckled_mobs())
 		var/mob/living/carbon/target = pick(buckled_mobs)
-		if(target.stat >= DEAD || !user.combat_mode)
+		if(target.stat >= DEAD || !(user.istate & ISTATE_HARM))
 			unbuckle_mob(target)
 			return
 		if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
